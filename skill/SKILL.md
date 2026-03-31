@@ -38,8 +38,8 @@ Check for the presence and quality of agent-oriented documentation. This is dist
 |-------|----------|
 | 0 | No CLAUDE.md, no .claude/ directory, no agent-specific docs |
 | 1 | A CLAUDE.md exists at root but is thin (< 20 lines, or just boilerplate) |
-| 2 | CLAUDE.md covers: project purpose, architecture overview, key conventions, and how to run/test. Or equivalent in .cursorrules / .github/copilot-instructions.md |
-| 3 | Root CLAUDE.md + subdirectory CLAUDE.md files for major modules. Docs reference specific patterns, anti-patterns, and decision rationale. Agent can orient without reading every file |
+| 2 | CLAUDE.md covers project purpose, architecture, conventions, and how to run/test — agent can orient itself without reading every source file. Or equivalent in .cursorrules / .github/copilot-instructions.md |
+| 3 | Root CLAUDE.md + subdirectory CLAUDE.md files for major modules. Docs reference specific patterns, anti-patterns, and decision rationale. Volatile content uses @imports so docs stay current without manual updates |
 
 Signals to check:
 - `CLAUDE.md` or `.claude/` at repo root
@@ -55,8 +55,8 @@ Can the agent understand the codebase layout without guessing?
 |-------|----------|
 | 0 | Flat or chaotic structure, no clear entry points |
 | 1 | Standard framework layout (e.g., Phoenix, Rails, Next.js) — agent can infer structure from convention |
-| 2 | Clear structure + README with architecture notes or a directory guide |
-| 3 | Well-organized with explicit boundary documentation. Monorepo has clear package/service boundaries. Entry points are obvious or documented |
+| 2 | Agent can find entry points and module boundaries without guessing. README or docs explain the layout, not just list it |
+| 3 | Module boundaries are enforced, not just documented (workspace configs, import restrictions, clear package boundaries). Entry points are obvious from structure alone |
 
 Signals to check:
 - Standard framework conventions followed
@@ -94,8 +94,8 @@ Can the agent confirm the app works end-to-end without asking a human?
 | Score | Criteria |
 |-------|----------|
 | 0 | No tests, or tests that don't run without manual setup |
-| 1 | Unit tests exist and pass. Agent can run `mix test` / `npm test` / etc. |
-| 2 | Integration or E2E tests exist. Test database seeds automatically. CI config shows what commands to run |
+| 1 | Unit tests exist, pass, and the agent knows which command to run (documented or inferable from manifest) |
+| 2 | Tests cover critical paths and catch real regressions, not just token coverage. Test database seeds automatically. CI config shows canonical commands |
 | 3 | Full E2E coverage the agent can trigger (browser tests via Playwright/Wallaby, CLI tests, API tests). Seed data available. Test commands support a quiet/summary mode that minimizes output on success — agent can verify a change without flooding its context window |
 
 Signals to check:
@@ -156,8 +156,8 @@ Does the repo encode its opinions so the agent follows them?
 |-------|----------|
 | 0 | No documented conventions. Agent has to reverse-engineer patterns from code |
 | 1 | Basic conventions mentioned in README (e.g., "we use Tailwind", "commits should be conventional") |
-| 2 | Conventions cover the major themes: naming, architecture patterns, error handling, testing approach. Either in CLAUDE.md or well-structured docs |
-| 3 | Comprehensive rules covering: commit message format, PR conventions, module boundaries, error handling patterns, naming conventions, test structure. Rules reference WHY, not just WHAT |
+| 2 | Conventions are specific enough to follow without seeing examples: naming patterns, error handling approach, testing expectations. In CLAUDE.md or well-structured docs |
+| 3 | Conventions are machine-enforceable where possible (linter rules, not just prose). Rules reference WHY, not just WHAT. Covers commit format, PR conventions, module boundaries, error handling, test structure |
 
 Signals to check:
 - CLAUDE.md convention sections
@@ -216,17 +216,22 @@ Signals to check:
 Produce the audit as a structured report:
 
 ```
-claudeaudit · {repo_name} · {date}
+claudeaudit - {repo_name} - {date}
 
-{Bad|Ok|Good|Great} — {level_name}
+{Bad|Ok|Good|Great} - {level_name}
 
-  Agent documentation {score}/3  Repository structure {score}/3
-  Dependency bootstrap {score}/3  Self-verification    {score}/3
-  Permissions          {score}/3  Code quality hooks   {score}/3
-  Rules & conventions  {score}/3  Worktree readiness   {score}/3
-  Sandbox compat.      {score}/3
+Readable
+  Agent documentation  {s}/3    Repository structure  {s}/3
 
-  {total}/27
+Runnable
+  Dependency bootstrap {s}/3    Self-verification     {s}/3
+
+Safe
+  Permissions          {s}/3    Code quality hooks    {s}/3
+  Rules & conventions  {s}/3
+
+Scalable
+  Worktree readiness   {s}/3    Sandbox compat.       {s}/3
 ```
 
 Then, for every category that scored below 3, include a sub-score block with findings and a concrete recommendation:
@@ -246,7 +251,7 @@ Keep findings grounded in specific files and paths you actually read. The recomm
 
 For each category:
 
-1. Use `find`, `ls`, `cat`, `head`, `grep` to check for the listed signals
+1. Use the Glob tool to find files, the Read tool to read them, and the Grep tool to search contents. Prefer these over shell commands.
 2. Read key files (CLAUDE.md, config files, CI config) to assess quality, not just presence
 3. Score based on the rubric — be honest, not generous. A 2 is good. A 3 is exceptional.
 4. Note specific files and lines that informed your score
@@ -254,28 +259,26 @@ For each category:
 
 Start by getting a high-level view of the repo:
 
-```bash
-# Repo overview
-ls -la
-find . -maxdepth 2 -name "CLAUDE.md" -o -name ".claude" -o -name ".cursorrules" 2>/dev/null
-find . -maxdepth 1 -name "Makefile" -o -name "Justfile" -o -name "docker-compose*" -o -name "Dockerfile" -o -name ".devcontainer" 2>/dev/null
-cat README.md 2>/dev/null | head -50
+1. **Agent docs and config** — use Glob to find agent-oriented files:
+   - `**/CLAUDE.md`, `.claude/**`, `.cursorrules`, `.github/copilot-instructions.md`
 
-# Check for key config files
-find . -maxdepth 2 \( -name ".pre-commit-config.yaml" -o -name ".husky" -o -name ".lefthook.yml" \) 2>/dev/null
-find . -maxdepth 2 \( -name ".eslintrc*" -o -name ".prettierrc*" -o -name ".credo.exs" -o -name ".formatter.exs" -o -name "ruff.toml" \) 2>/dev/null
-ls .claude/ 2>/dev/null
-cat .claude/settings.json 2>/dev/null
+2. **Build and setup** — use Glob to find build/setup configs:
+   - `Makefile`, `Justfile`, `docker-compose*`, `Dockerfile`, `.devcontainer/**`
 
-# Check for tests and CI
-find . -maxdepth 3 -name "*test*" -o -name "*spec*" | head -20
-ls .github/workflows/ 2>/dev/null
-ls .gitlab-ci.yml 2>/dev/null
+3. **Project overview** — use Read on `README.md` (first 50 lines) and any manifest files (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, `mix.exs`)
 
-# Check for env templates
-find . -maxdepth 2 -name ".env*" 2>/dev/null
-find . -maxdepth 2 -name "seeds*" -o -name "seed*" 2>/dev/null
-```
+4. **Code quality configs** — use Glob to find linter/formatter/hook configs:
+   - `.pre-commit-config.yaml`, `.husky/**`, `.lefthook.yml`
+   - `.eslintrc*`, `.prettierrc*`, `.credo.exs`, `.formatter.exs`, `ruff.toml`, `biome.json`
+
+5. **Tests and CI** — use Glob to find test files and CI config:
+   - `**/*test*`, `**/*spec*` (limit depth to 3)
+   - `.github/workflows/**`, `.gitlab-ci.yml`
+
+6. **Environment** — use Glob to find env templates and seed files:
+   - `.env*`, `**/seeds*`, `**/seed*`
+
+7. **Permissions** — use Read on `.claude/settings.json` if it exists
 
 Then dive deeper into each category as needed. Read files, don't just check existence.
 
