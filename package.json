@@ -1,0 +1,27 @@
+{
+  "name": "claudeaudit",
+  "version": "0.1.0",
+  "description": "Audit your repository for AI agent readiness",
+  "bin": {
+    "claudeaudit": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    "skill/"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "audit",
+    "agent",
+    "ai"
+  ],
+  "author": "David Heimann",
+  "license": "MIT",
+  "homepage": "https://claudeaudit.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heimann/claudeaudit"
+  }
+}
