@@ -38,8 +38,8 @@ Check for the presence and quality of agent-oriented documentation. This is dist
 |-------|----------|
 | 0 | No CLAUDE.md, no .claude/ directory, no agent-specific docs |
 | 1 | A CLAUDE.md exists at root but is thin (< 20 lines, or just boilerplate) |
-| 2 | CLAUDE.md covers project purpose, architecture, conventions, and how to run/test — agent can orient itself without reading every source file. Or equivalent in .cursorrules / .github/copilot-instructions.md |
-| 3 | Root CLAUDE.md + subdirectory CLAUDE.md files for major modules. Docs reference specific patterns, anti-patterns, and decision rationale. Volatile content uses @imports so docs stay current without manual updates |
+| 2 | CLAUDE.md covers project purpose, architecture, conventions, and how to run/test - agent can orient itself without reading every source file. Or equivalent in .cursorrules / .github/copilot-instructions.md. A single @import to a comprehensive file (e.g., AGENTS.md) counts if that file covers the same ground |
+| 3 | Multi-level agent docs: root CLAUDE.md plus sub-module documentation (subdirectory CLAUDE.md files, or @imports that pull in module-specific guidance). Docs cover not just what to do but what NOT to do (anti-patterns, decision rationale). Score 3 requires depth across the codebase, not just one thorough top-level file |
 
 Signals to check:
 - `CLAUDE.md` or `.claude/` at repo root
@@ -76,8 +76,8 @@ Can the agent go from a fresh clone to a running app?
 |-------|----------|
 | 0 | No setup instructions. Missing lock files. Undocumented system dependencies |
 | 1 | Setup instructions exist but require human judgment (e.g., "install Postgres" with no version or method specified) |
-| 2 | Single setup command works (e.g., `mix setup`, `make dev`, `docker compose up`). `.env.example` or `.env.template` present. System deps documented or containerized |
-| 3 | Fully automated: one command from zero to running. Docker or devcontainer config. Seed data included. No manual env var setup required for development |
+| 2 | A single documented command gets the agent from clone to running/testable (e.g., `mix setup`, `make dev`, `docker compose up`). Lock files present. System deps documented or containerized. If env vars are needed, `.env.example` or `.env.template` exists |
+| 3 | Truly zero-friction: one command, no prerequisites beyond a language runtime or Docker. Devcontainer or Docker config means the agent doesn't even need the right language version installed. Seed data included if applicable. No manual env var setup required. Two-step processes (e.g., "install tool X then run make dev") are a 2, not a 3 |
 
 Signals to check:
 - `mix setup` / `npm install` / `make` / `docker compose` scripts
@@ -95,8 +95,8 @@ Can the agent confirm the app works end-to-end without asking a human?
 |-------|----------|
 | 0 | No tests, or tests that don't run without manual setup |
 | 1 | Unit tests exist, pass, and the agent knows which command to run (documented or inferable from manifest) |
-| 2 | Tests cover critical paths and catch real regressions, not just token coverage. Test database seeds automatically. CI config shows canonical commands |
-| 3 | Full E2E coverage the agent can trigger (browser tests via Playwright/Wallaby, CLI tests, API tests). Seed data available. Test commands support a quiet/summary mode that minimizes output on success — agent can verify a change without flooding its context window |
+| 2 | Tests cover critical paths and catch real regressions, not just token coverage. Test database seeds automatically. CI config shows canonical test commands. Agent can run the full suite without manual intervention |
+| 3 | All of score 2, plus: agent can run scoped tests (single file or module) for fast feedback. Test output is agent-friendly (quiet/summary mode available or output is concise by default). E2E or integration tests exist for critical user flows, not just unit tests. Seed data available if applicable |
 
 Signals to check:
 - Test files exist and follow framework conventions
@@ -119,14 +119,17 @@ Is the agent's access properly scoped?
 |-------|----------|
 | 0 | No `.claude/settings.json` or permissions config. Agent will hit permission prompts on first action |
 | 1 | `.claude/settings.json` exists but is overly permissive (e.g., allows all bash) or overly restrictive (blocks test runners) |
-| 2 | Permissions are scoped to what the agent actually needs: test commands, build tools, linters. Dangerous operations are gated |
-| 3 | Permissions are thoughtfully configured per-context. MCP servers configured if relevant. Tool access documented in CLAUDE.md |
+| 2 | `allowedTools` scoped to what the agent needs: test commands, build tools, linters are pre-approved. Dangerous operations are not in the allow list |
+| 3 | All of score 2, plus at least two of: (a) explicit `blockedTools` for dangerous operations, (b) custom skills or hooks for project workflows, (c) MCP servers configured, (d) tool access documented in CLAUDE.md. Permissions show intentional design, not just a basic allow list |
 
 Signals to check:
 - `.claude/settings.json` at repo root
-- Permissions scope: what's allowed vs. blocked
+- `allowedTools` present with specific command patterns (not overly broad like `Bash(*)`)
+- `blockedTools` for dangerous operations (force push, rm -rf, publish)
+- Custom skills in `.claude/skills/` or hooks in settings
 - Whether test/build/lint commands are pre-approved
 - MCP server configs (`.claude/mcp.json` or similar)
+- Tool access documented in CLAUDE.md
 
 #### 6. Code quality hooks (`/3`)
 
@@ -154,8 +157,8 @@ Does the repo encode its opinions so the agent follows them?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No documented conventions. Agent has to reverse-engineer patterns from code |
-| 1 | Basic conventions mentioned in README (e.g., "we use Tailwind", "commits should be conventional") |
+| 0 | No documented conventions in prose or agent-oriented docs. Linter/formatter config files alone do not count - they enforce style but don't tell the agent about project-specific patterns, naming, architecture decisions, or workflow expectations |
+| 1 | Basic conventions mentioned in README, CONTRIBUTING.md, or similar (e.g., "we use Tailwind", "commits should be conventional"). Or: conventions are inferable from well-configured linter/formatter/editorconfig files, but not explained in prose |
 | 2 | Conventions are specific enough to follow without seeing examples: naming patterns, error handling approach, testing expectations. In CLAUDE.md or well-structured docs |
 | 3 | Conventions are machine-enforceable where possible (linter rules, not just prose). Rules reference WHY, not just WHAT. Covers commit format, PR conventions, module boundaries, error handling, test structure |
 
@@ -177,36 +180,43 @@ Can multiple agent sessions work in parallel without conflicts?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | Hardcoded absolute paths, state written outside repo, port collisions likely |
-| 1 | Relative paths used but shared state issues likely (single SQLite file, hardcoded ports, shared tmp dirs) |
-| 2 | Configurable ports, database URLs from env vars, no repo-external state. Could work in a worktree with minor env tweaks |
-| 3 | Explicitly worktree-safe: ports derived from worktree path or configurable, database per-worktree, no singleton resources. Or containerized so each session is isolated |
-
-Signals to check:
-- Hardcoded ports in config (e.g., `port: 4000` with no env override)
-- SQLite database paths (hardcoded vs. configurable)
-- References to absolute paths (`/home/`, `/Users/`, `/tmp/specific-name`)
-- Shared state: PID files, lock files, Unix sockets with fixed paths
-- Port configuration via `PORT` env var or similar
-- Docker Compose with configurable service names/ports
-
-#### 9. Sandbox compatibility (`/3`)
-
-Can the agent work within a restricted execution environment?
+Score based on **actual collision risk**, not just configuration presence. A stateless CLI tool or pure library has no collision surface and should score well without explicit worktree config.
 
 | Score | Criteria |
 |-------|----------|
-| 0 | App requires host network access, system services, or resources that sandboxes typically don't provide |
-| 1 | App mostly works in a sandbox but some features fail silently (e.g., needs external API keys not available in sandbox) |
-| 2 | App runs in Docker or similar container. External dependencies are mockable or optional for development. Network requirements are documented |
-| 3 | Full sandbox support: Dockerfile/devcontainer works in restricted environments, external deps are stubbed for dev, no host resource assumptions. `.claude/settings.json` permissions are pre-configured |
+| 0 | Hardcoded absolute paths, state written outside repo, port collisions likely. Multiple sessions WILL interfere |
+| 1 | Relative paths used but shared state issues likely (single SQLite file, hardcoded ports with no override, shared tmp dirs). Multiple sessions MIGHT interfere |
+| 2 | Either: (a) the app has no collision surface (stateless CLI, library, no ports, no local DB), or (b) ports and database URLs are configurable via env vars, no repo-external state. Could work in parallel worktrees with minor env tweaks |
+| 3 | Explicitly designed for parallel sessions: ports derived from env var or worktree path, database per-worktree or per-session, no singleton resources. Or containerized so each session is isolated. Or: app is inherently stateless AND documents this fact for agent confidence |
 
 Signals to check:
-- `Dockerfile`, `docker-compose.yml`, `.devcontainer/`
-- External service dependencies (APIs, databases, cloud services)
-- Whether external deps have dev/mock modes
+- Does the app bind ports? If yes, are they configurable via env var (not just CLI flag)?
+- Does the app write local state (SQLite, PID files, lock files, Unix sockets)?
+- Hardcoded absolute paths (`/home/`, `/Users/`, `/tmp/specific-name`)
+- Shared cache directories (e.g., appdirs, XDG cache with fixed paths)
+- For web apps: `PORT` env var support is the minimum bar
+- Docker Compose with configurable service names/ports
+- For stateless tools (CLI, library, build tool): inherently low-risk, score based on whether any shared state exists at all
+
+#### 9. Sandbox compatibility (`/3`)
+
+Can the agent build, test, and develop in a restricted environment (container, VM, CI runner) without host-specific resources?
+
+Score based on **actual friction**, not container config presence. A trivially simple app with no system deps is inherently sandbox-compatible and should score well even without a Dockerfile.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | Dev workflow requires resources sandboxes typically cannot provide: GPU/display server, host network/PID namespace, specific OS services, or undocumented system packages with no install path |
+| 1 | Dev workflow mostly works in a sandbox but has friction: needs system packages that are documented but not automated (e.g., "install FFmpeg"), or some features fail without host access. External API keys needed but not documented |
+| 2 | Dev workflow runs in a sandbox with minimal setup. Either: (a) the app has few enough system deps that standard language runtimes suffice (e.g., pure Node.js, pure Python with no native extensions), or (b) a Dockerfile/devcontainer automates the heavier setup. External deps are optional or mockable. Network requirements documented |
+| 3 | Explicitly sandbox-ready: Dockerfile or devcontainer tested in restricted environments, external deps stubbed for dev, no host resource assumptions. `.claude/settings.json` permissions pre-configured. Or: the app is trivially portable (no system deps, no network, no external services) AND documents this fact |
+
+Signals to check:
+- System dependency weight: does the app need only a language runtime, or also native packages, databases, display servers?
+- `Dockerfile`, `docker-compose.yml`, `.devcontainer/` (important for heavy deps, less important for trivially portable apps)
+- External service dependencies (APIs, databases, cloud services) and whether they have dev/mock modes
 - Network egress requirements documented
-- System-level dependencies (native extensions, OS packages)
+- Whether the app actually runs in a fresh container or VM (not just "has a Dockerfile")
 - `.claude/settings.json` configured for sandbox permissions
 
 ---
