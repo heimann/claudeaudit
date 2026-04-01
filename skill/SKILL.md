@@ -84,7 +84,7 @@ Can the agent go from a fresh clone to a running app?
 | 0 | No setup instructions. Missing lock files. Undocumented system dependencies |
 | 1 | Setup instructions exist but require human judgment (e.g., "install Postgres" with no version or method specified) |
 | 2 | A single documented command gets the agent from clone to running/testable (e.g., `mix setup`, `make dev`, `docker compose up`). Lock files present. System deps documented or containerized. If env vars are needed, `.env.example` or `.env.template` exists |
-| 3 | Truly zero-friction: one command, no prerequisites beyond a language runtime or Docker. Devcontainer or Docker config means the agent doesn't even need the right language version installed. Seed data included if applicable. No manual env var setup required. Two-step processes (e.g., "install tool X then run make dev") are a 2, not a 3 |
+| 3 | Truly zero-friction: one command from clone to running. A devcontainer, Docker Compose, or well-configured setup script that handles everything (language runtime, system deps, database, seed data) with no manual steps. No manual env var setup required. The agent doesn't need to know what language version to install or what system packages are needed. Two-step processes (e.g., "install tool X then run make dev") are a 2, not a 3 |
 
 Signals to check:
 - `mix setup` / `npm install` / `make` / `docker compose` scripts
