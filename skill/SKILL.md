@@ -22,7 +22,7 @@ Assess how ready a repository is for autonomous AI agent work. Produce a structu
 - **Good — Safe**: The agent can work confidently (linting hooks, permissions, formatting rules)
 - **Great — Scalable**: The agent can run in parallel sessions (worktrees, sandboxes, no collisions)
 
-Overall level = the highest level where ALL categories at that level score ≥ 2.
+Overall level is computed mechanically - see "Computing the maturity level" below. Do not eyeball it.
 
 ---
 
@@ -36,16 +36,18 @@ Check for the presence and quality of agent-oriented documentation. This is dist
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No CLAUDE.md, no .claude/ directory, no agent-specific docs |
-| 1 | A CLAUDE.md exists at root but is thin (< 20 lines, or just boilerplate) |
-| 2 | CLAUDE.md covers project purpose, architecture, conventions, and how to run/test — agent can orient itself without reading every source file. Or equivalent in .cursorrules / .github/copilot-instructions.md |
-| 3 | Root CLAUDE.md + subdirectory CLAUDE.md files for major modules. Docs reference specific patterns, anti-patterns, and decision rationale. Volatile content uses @imports so docs stay current without manual updates |
+| 0 | No agent-oriented documentation of any kind. No CLAUDE.md, no .agents/, no .cursorrules, no copilot-instructions.md |
+| 1 | Agent docs exist but are thin (< 20 lines, or just boilerplate). Or: a substantial agent skill exists (e.g., .agents/skills/) but no root-level orientation doc covering project architecture and conventions |
+| 2 | Agent docs cover project purpose, architecture, conventions, and how to run/test - agent can orient itself without reading every source file. Accepted formats: CLAUDE.md, AGENTS.md, .agents/skills/ with comprehensive SKILL.md, .cursorrules, .github/copilot-instructions.md, or any structured agent-oriented doc. A single @import to a comprehensive file counts if that file covers the same ground |
+| 3 | Multi-level agent docs: root-level orientation plus sub-module documentation (subdirectory docs, @imports, or skill reference files that provide module-specific guidance). Docs cover not just what to do but what NOT to do (anti-patterns, decision rationale). Score 3 requires depth across the codebase, not just one thorough top-level file |
 
 Signals to check:
-- `CLAUDE.md` or `.claude/` at repo root
-- Subdirectory `CLAUDE.md` files (e.g., `src/CLAUDE.md`, `lib/CLAUDE.md`)
+- `CLAUDE.md`, `AGENTS.md`, or `.claude/` at repo root
+- `.agents/`, `.agents/skills/` with skill files
+- Subdirectory agent docs (e.g., `src/CLAUDE.md`, `lib/CLAUDE.md`)
 - `.cursorrules`, `.github/copilot-instructions.md`, or similar
 - Whether docs mention: architecture, conventions, testing approach, common pitfalls
+- If agent docs exist in a non-CLAUDE.md format (AGENTS.md, .agents/skills/, .cursorrules), recommend adding a CLAUDE.md with an @import pointing to the existing docs. This makes the content discoverable by Claude Code without duplicating it
 
 #### 2. Repository structure (`/3`)
 
@@ -76,8 +78,8 @@ Can the agent go from a fresh clone to a running app?
 |-------|----------|
 | 0 | No setup instructions. Missing lock files. Undocumented system dependencies |
 | 1 | Setup instructions exist but require human judgment (e.g., "install Postgres" with no version or method specified) |
-| 2 | Single setup command works (e.g., `mix setup`, `make dev`, `docker compose up`). `.env.example` or `.env.template` present. System deps documented or containerized |
-| 3 | Fully automated: one command from zero to running. Docker or devcontainer config. Seed data included. No manual env var setup required for development |
+| 2 | A single documented command gets the agent from clone to running/testable (e.g., `mix setup`, `make dev`, `docker compose up`). Lock files present. System deps documented or containerized. If env vars are needed, `.env.example` or `.env.template` exists |
+| 3 | Truly zero-friction: one command, no prerequisites beyond a language runtime or Docker. Devcontainer or Docker config means the agent doesn't even need the right language version installed. Seed data included if applicable. No manual env var setup required. Two-step processes (e.g., "install tool X then run make dev") are a 2, not a 3 |
 
 Signals to check:
 - `mix setup` / `npm install` / `make` / `docker compose` scripts
@@ -95,8 +97,8 @@ Can the agent confirm the app works end-to-end without asking a human?
 |-------|----------|
 | 0 | No tests, or tests that don't run without manual setup |
 | 1 | Unit tests exist, pass, and the agent knows which command to run (documented or inferable from manifest) |
-| 2 | Tests cover critical paths and catch real regressions, not just token coverage. Test database seeds automatically. CI config shows canonical commands |
-| 3 | Full E2E coverage the agent can trigger (browser tests via Playwright/Wallaby, CLI tests, API tests). Seed data available. Test commands support a quiet/summary mode that minimizes output on success — agent can verify a change without flooding its context window |
+| 2 | Tests cover critical paths and catch real regressions, not just token coverage. Test database seeds automatically. CI config shows canonical test commands. Agent can run the full suite without manual intervention |
+| 3 | All of score 2, plus: agent can run scoped tests (single file or module) for fast feedback. Test output is agent-friendly (quiet/summary mode available or output is concise by default). E2E or integration tests exist for critical user flows, not just unit tests. Seed data available if applicable |
 
 Signals to check:
 - Test files exist and follow framework conventions
@@ -117,16 +119,19 @@ Is the agent's access properly scoped?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No `.claude/settings.json` or permissions config. Agent will hit permission prompts on first action |
-| 1 | `.claude/settings.json` exists but is overly permissive (e.g., allows all bash) or overly restrictive (blocks test runners) |
-| 2 | Permissions are scoped to what the agent actually needs: test commands, build tools, linters. Dangerous operations are gated |
-| 3 | Permissions are thoughtfully configured per-context. MCP servers configured if relevant. Tool access documented in CLAUDE.md |
+| 0 | No agent permissions config of any kind. No `.claude/settings.json`, no `.agents/` capability scoping, no tool restrictions in any agent config format |
+| 1 | Agent permissions config exists but is overly permissive (e.g., allows all bash) or overly restrictive (blocks test runners). Or: agent skills/docs exist that implicitly scope work but no explicit permission boundaries |
+| 2 | Agent tool access is explicitly scoped: test commands, build tools, linters are pre-approved, dangerous operations are gated. Accepted formats: `.claude/settings.json` with `allowedTools`, `.agents/` with capability definitions, `.cursorrules` with tool restrictions, or equivalent |
+| 3 | All of score 2, plus at least two of: (a) explicit deny list for dangerous operations, (b) custom skills or hooks for project workflows, (c) MCP or tool servers configured, (d) tool access documented in agent docs. Permissions show intentional design, not just a basic allow list |
 
 Signals to check:
-- `.claude/settings.json` at repo root
-- Permissions scope: what's allowed vs. blocked
-- Whether test/build/lint commands are pre-approved
-- MCP server configs (`.claude/mcp.json` or similar)
+- `.claude/settings.json` at repo root (allowedTools, blockedTools)
+- `.agents/` with capability scoping or permission boundaries
+- `.cursorrules` with tool restrictions
+- Custom skills (`.claude/skills/`, `.claude/commands/`, `.agents/skills/`)
+- Whether test/build/lint commands are pre-approved in any config
+- MCP or tool server configs
+- Tool access documented in agent docs
 
 #### 6. Code quality hooks (`/3`)
 
@@ -154,8 +159,8 @@ Does the repo encode its opinions so the agent follows them?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No documented conventions. Agent has to reverse-engineer patterns from code |
-| 1 | Basic conventions mentioned in README (e.g., "we use Tailwind", "commits should be conventional") |
+| 0 | No documented conventions in prose or agent-oriented docs. Linter/formatter config files alone do not count - they enforce style but don't tell the agent about project-specific patterns, naming, architecture decisions, or workflow expectations |
+| 1 | Basic conventions mentioned in README, CONTRIBUTING.md, or similar (e.g., "we use Tailwind", "commits should be conventional"). Or: conventions are inferable from well-configured linter/formatter/editorconfig files, but not explained in prose |
 | 2 | Conventions are specific enough to follow without seeing examples: naming patterns, error handling approach, testing expectations. In CLAUDE.md or well-structured docs |
 | 3 | Conventions are machine-enforceable where possible (linter rules, not just prose). Rules reference WHY, not just WHAT. Covers commit format, PR conventions, module boundaries, error handling, test structure |
 
@@ -177,37 +182,147 @@ Can multiple agent sessions work in parallel without conflicts?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | Hardcoded absolute paths, state written outside repo, port collisions likely |
-| 1 | Relative paths used but shared state issues likely (single SQLite file, hardcoded ports, shared tmp dirs) |
-| 2 | Configurable ports, database URLs from env vars, no repo-external state. Could work in a worktree with minor env tweaks |
-| 3 | Explicitly worktree-safe: ports derived from worktree path or configurable, database per-worktree, no singleton resources. Or containerized so each session is isolated |
-
-Signals to check:
-- Hardcoded ports in config (e.g., `port: 4000` with no env override)
-- SQLite database paths (hardcoded vs. configurable)
-- References to absolute paths (`/home/`, `/Users/`, `/tmp/specific-name`)
-- Shared state: PID files, lock files, Unix sockets with fixed paths
-- Port configuration via `PORT` env var or similar
-- Docker Compose with configurable service names/ports
-
-#### 9. Sandbox compatibility (`/3`)
-
-Can the agent work within a restricted execution environment?
+Score based on **actual collision risk**, not just configuration presence. A stateless CLI tool or pure library has no collision surface and should score well without explicit worktree config.
 
 | Score | Criteria |
 |-------|----------|
-| 0 | App requires host network access, system services, or resources that sandboxes typically don't provide |
-| 1 | App mostly works in a sandbox but some features fail silently (e.g., needs external API keys not available in sandbox) |
-| 2 | App runs in Docker or similar container. External dependencies are mockable or optional for development. Network requirements are documented |
-| 3 | Full sandbox support: Dockerfile/devcontainer works in restricted environments, external deps are stubbed for dev, no host resource assumptions. `.claude/settings.json` permissions are pre-configured |
+| 0 | Hardcoded absolute paths, state written outside repo, port collisions likely. Multiple sessions WILL interfere |
+| 1 | Relative paths used but shared state issues likely (single SQLite file, hardcoded ports with no override, shared tmp dirs). Multiple sessions MIGHT interfere |
+| 2 | Either: (a) the app has no collision surface (stateless CLI, library, no ports, no local DB), or (b) ports and database URLs are configurable via env vars, no repo-external state. Could work in parallel worktrees with minor env tweaks |
+| 3 | Explicitly designed for parallel sessions: ports derived from env var or worktree path, database per-worktree or per-session, no singleton resources. Or containerized so each session is isolated. Or: app is inherently stateless AND documents this fact for agent confidence |
 
 Signals to check:
-- `Dockerfile`, `docker-compose.yml`, `.devcontainer/`
-- External service dependencies (APIs, databases, cloud services)
-- Whether external deps have dev/mock modes
+- Does the app bind ports? If yes, are they configurable via env var (not just CLI flag)?
+- Does the app write local state (SQLite, PID files, lock files, Unix sockets)?
+- Hardcoded absolute paths (`/home/`, `/Users/`, `/tmp/specific-name`)
+- Shared cache directories (e.g., appdirs, XDG cache with fixed paths)
+- For web apps: `PORT` env var support is the minimum bar
+- Docker Compose with configurable service names/ports
+- For stateless tools (CLI, library, build tool): inherently low-risk, score based on whether any shared state exists at all
+
+#### 9. Sandbox compatibility (`/3`)
+
+Can the agent build, test, and develop in a restricted environment (container, VM, CI runner) without host-specific resources?
+
+Score based on **actual friction**, not container config presence. A trivially simple app with no system deps is inherently sandbox-compatible and should score well even without a Dockerfile.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | Dev workflow requires resources sandboxes typically cannot provide: GPU/display server, host network/PID namespace, specific OS services, or undocumented system packages with no install path |
+| 1 | Dev workflow mostly works in a sandbox but has friction: needs system packages that are documented but not automated (e.g., "install FFmpeg"), or some features fail without host access. External API keys needed but not documented |
+| 2 | Dev workflow runs in a sandbox with minimal setup. Either: (a) the app has few enough system deps that standard language runtimes suffice (e.g., pure Node.js, pure Python with no native extensions), or (b) a Dockerfile/devcontainer automates the heavier setup. External deps are optional or mockable. Network requirements documented |
+| 3 | Explicitly sandbox-ready: Dockerfile or devcontainer tested in restricted environments, external deps stubbed for dev, no host resource assumptions. `.claude/settings.json` permissions pre-configured. Or: the app is trivially portable (no system deps, no network, no external services) AND documents this fact |
+
+Signals to check:
+- System dependency weight: does the app need only a language runtime, or also native packages, databases, display servers?
+- `Dockerfile`, `docker-compose.yml`, `.devcontainer/` (important for heavy deps, less important for trivially portable apps)
+- External service dependencies (APIs, databases, cloud services) and whether they have dev/mock modes
 - Network egress requirements documented
-- System-level dependencies (native extensions, OS packages)
+- Whether the app actually runs in a fresh container or VM (not just "has a Dockerfile")
 - `.claude/settings.json` configured for sandbox permissions
+
+---
+
+## Ergonomics
+
+A separate dimension from config readiness. Config readiness measures whether the repo is *set up* for agents. Ergonomics measures whether the repo is *pleasant and productive* for agents to work in. Config is a baseline you set up once; ergonomics improves continuously over time.
+
+Ergonomics scores are reported as flat scores (no maturity level) and do not affect the config readiness maturity level. They are independent dimensions.
+
+All ergonomics signals are measured passively (reading files, git metadata, file stats). No application code is executed.
+
+### 10. Feedback loop (`/3`)
+
+How fast can the agent verify its change is correct? "Tests exist" is not the same as "the agent can verify a change in under 30 seconds."
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No way to verify changes, or test suite is monolithic with no scoping |
+| 1 | Tests exist and run locally but are all-or-nothing. No documented way to run a single test or scoped subset |
+| 2 | Scoped test command exists and is documented (e.g., `pytest path::test`, `mix test file:line`). Fast lint or typecheck available as a pre-test check |
+| 3 | Scoped tests are the documented default. Watch mode or incremental build configured. Agent can get feedback on a single-file change in seconds, not minutes |
+
+Signals to check:
+- Whether a scoped test command is documented (in CLAUDE.md, README, or test config)
+- Watch mode config (jest --watch, mix test --watch, tsc --watch, nodemon)
+- Whether tests support parallel execution
+- Test suite size (number of test files as a rough proxy for suite runtime)
+- Whether there's a fast typecheck or lint that runs before the full suite
+
+### 11. Error signal quality (`/3`)
+
+When something breaks, does the agent get a useful signal or noise? This category is harder to assess passively - score based on configuration and framework choice rather than actual output.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No test framework, or a framework known for cryptic output with no customization |
+| 1 | Standard framework with default error output. No custom reporters, no stack trace filtering, no error formatters configured |
+| 2 | Configured for concise output: custom test reporter, `--tb=short` or equivalent as default, stack trace filtering, or a framework with naturally concise errors (Go, Rust, Elm) |
+| 3 | Custom error formatters or structured error types with context fields. Test output is explicitly optimized for readability (custom reporters, filtered frames, expected-vs-actual formatting) |
+
+Signals to check:
+- Test reporter configuration (mocha reporter, pytest conftest, jest config)
+- Stack trace filtering config (--tb=short defaults, --no-stack-trace)
+- Custom exception/error classes with context fields
+- Framework choice (Go/Rust/Elm naturally concise vs raw Java/C++ stack traces)
+- Error formatter or pretty-printer configs
+
+### 12. Type system and static analysis (`/3`)
+
+Does the codebase give the agent fast, reliable feedback through types and static analysis before running anything?
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No type system, no static analysis. Agent discovers mistakes only at runtime. Or: dynamically typed language with no type annotations and no linter |
+| 1 | Types exist but are partial, loose, or not enforced. TypeScript without strict mode, Python with sparse hints and no mypy, prevalent `any`/`Any` usage |
+| 2 | Types cover critical paths and are enforced in CI. Typecheck runs as part of the dev workflow. Major interfaces are well-typed. Minimal `any` usage |
+| 3 | Strict type checking across the codebase (TypeScript strict, mypy strict, Rust, Go). Types serve as documentation - agent can understand function contracts from signatures alone. Static analysis catches common mistakes before any code runs |
+
+Signals to check:
+- TypeScript: `strict: true` in tsconfig.json
+- Python: mypy/pyright config with strict mode
+- Rust, Go: inherently typed (score based on whether the type system is leveraged well)
+- Prevalence of `any` / `Any` / untyped functions
+- Whether typecheck runs in CI
+- Type coverage tooling configured
+
+### 13. Determinism (`/3`)
+
+Does the same command give the same result every time? Flaky tests, time-dependent behavior, and network calls in tests mean the agent cannot trust its own feedback loop.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | Tests depend on external services (third-party APIs, cloud endpoints) with no mocking. Or: known-flaky tests with no quarantine strategy. Note: tests hitting a local test server started by a fixture are NOT external - they are a timing dependency (score 1), not a network dependency (score 0) |
+| 1 | Most tests are stable but some have timing dependencies (sleeps, retries, timeouts, or local HTTP server fixtures). External deps are partially mocked. Lock files present |
+| 2 | Tests are isolated: external deps mocked/stubbed, no sleeps or timing-dependent assertions, no network calls in test files. Lock files used consistently |
+| 3 | Full determinism: seeded randomness, hermetic builds, no network in tests. Any non-determinism is explicitly quarantined (marked flaky, skipped in CI, or run separately) |
+
+Signals to check:
+- `sleep`, `time.sleep`, `setTimeout` patterns in test files
+- `retry`, `retries`, `flaky` annotations in test configs
+- Network calls in test files (fetch, http, requests, axios)
+- Random usage without seeding in test files
+- Mock/stub/fake patterns in test files (indicates external deps are isolated)
+- Test config timeouts and retry settings
+
+### 14. Change locality (`/3`)
+
+Can the agent understand and change one part of the codebase without loading everything? Combines coupling (how many files must change) with digestibility (how many files must be read).
+
+| Score | Criteria |
+|-------|----------|
+| 0 | God files (> 1000 lines doing multiple things), circular dependencies, global mutable state. Average commit touches 5+ files. Agent must understand the entire codebase to change anything |
+| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files. Note: if any god file (> 1000 lines) exists, score cannot be higher than 1 regardless of other signals |
+| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines, no files > 1000 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
+| 3 | Strict module boundaries enforced by tooling. Files are focused (< 300 lines typical). Dependency direction is one-way. Agent can confidently change one module by reading only that module's files |
+
+Signals to check:
+- Largest source files by line count (top 10, excluding generated/vendor/lock files)
+- Average files changed per commit (last 50 commits via git log --stat)
+- Barrel exports or public API definitions (__init__.py, index.ts re-exports)
+- Circular dependencies between sibling modules
+- Directory nesting depth
+- God files (files > 1000 lines)
 
 ---
 
@@ -232,9 +347,14 @@ Safe
 
 Scalable
   Worktree readiness   {s}/3    Sandbox compat.       {s}/3
+
+Ergonomics
+  Feedback loop        {s}/3    Error signal quality  {s}/3
+  Type system          {s}/3    Determinism           {s}/3
+  Change locality      {s}/3
 ```
 
-Then, for every category that scored below 3, include a sub-score block with findings and a concrete recommendation:
+Then, for every category that scored below 3 (both config and ergonomics), include a sub-score block with findings and a concrete recommendation:
 
 ```
 {Category name} {score}/3
@@ -249,43 +369,72 @@ Keep findings grounded in specific files and paths you actually read. The recomm
 
 ## Running the audit
 
+Use a two-phase approach: fast exploration first, then judgment-based scoring.
+
+### Phase 1: Explore (parallel, use fast model)
+
+Spawn 5 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
+
+The exploration prompts are in the skill's companion files. Read and use these as the agent prompts:
+- `explore-docs.md` - Agent documentation and repository structure signals
+- `explore-build.md` - Dependency bootstrapping and self-verification signals
+- `explore-quality.md` - Permissions, code quality hooks, and conventions signals
+- `explore-scale.md` - Worktree readiness and sandbox compatibility signals
+- `explore-ergonomics.md` - Feedback loop, error quality, type system, determinism, and change locality signals
+
+Each exploration agent prompt should begin with: "Explore the repository at {repo_root} and report FACTS ONLY." followed by the content of the corresponding explore-*.md file.
+
+Wait for all 4 agents to complete before proceeding.
+
+### Phase 2: Score (judgment, use current model)
+
+Once all exploration agents return, assemble their signal reports into a single evidence document. Then score each of the 9 categories against the rubric above.
+
 For each category:
+1. Review the relevant signals from the exploration reports
+2. Score based on the rubric - be honest, not generous. A 2 is good. A 3 is exceptional.
+3. Note specific files and paths from the exploration data that informed your score
+4. Write concrete, actionable recommendations (not "improve documentation" but "add a CLAUDE.md section covering your Ecto schema naming convention")
 
-1. Use the Glob tool to find files, the Read tool to read them, and the Grep tool to search contents. Prefer these over shell commands.
-2. Read key files (CLAUDE.md, config files, CI config) to assess quality, not just presence
-3. Score based on the rubric — be honest, not generous. A 2 is good. A 3 is exceptional.
-4. Note specific files and lines that informed your score
-5. Write concrete, actionable recommendations (not "improve documentation" but "add a CLAUDE.md section covering your Ecto schema naming convention")
+### Computing the maturity level
 
-Start by getting a high-level view of the repo:
+The maturity level MUST be computed mechanically from the scores. Do not use judgment for this step. Follow this algorithm exactly:
 
-1. **Agent docs and config** — use Glob to find agent-oriented files:
-   - `**/CLAUDE.md`, `.claude/**`, `.cursorrules`, `.github/copilot-instructions.md`
+```
+readable = Agent documentation >= 2 AND Repository structure >= 2
+runnable = Dependency bootstrapping >= 2 AND Self-verification >= 2
+safe     = Permissions >= 2 AND Code quality hooks >= 2 AND Rules and conventions >= 2
+scalable = Worktree readiness >= 2 AND Sandbox compatibility >= 2
 
-2. **Build and setup** — use Glob to find build/setup configs:
-   - `Makefile`, `Justfile`, `docker-compose*`, `Dockerfile`, `.devcontainer/**`
+if readable AND runnable AND safe AND scalable:
+    level = Great
+elif readable AND runnable AND safe:
+    level = Good
+elif readable AND runnable:
+    level = Ok
+elif readable:
+    level = Bad (Readable)
+else:
+    level = Bad
+```
 
-3. **Project overview** — use Read on `README.md` (first 50 lines) and any manifest files (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, `mix.exs`)
+Levels are cumulative. Each level requires all lower tiers to also pass. You cannot skip a level: a repo with great Scalable scores but poor Readable scores is still Bad.
 
-4. **Code quality configs** — use Glob to find linter/formatter/hook configs:
-   - `.pre-commit-config.yaml`, `.husky/**`, `.lefthook.yml`
-   - `.eslintrc*`, `.prettierrc*`, `.credo.exs`, `.formatter.exs`, `ruff.toml`, `biome.json`
+Examples:
+- Scores: 0,2,2,2,2,3,3,2,2 -> Bad (Agent docs = 0, Readable not met)
+- Scores: 2,2,1,2,2,3,3,2,2 -> Bad (Dep bootstrap = 1, Runnable not met; Readable passes but level stays Bad since Runnable blocks Ok)
+- Scores: 2,2,2,2,1,3,3,2,2 -> Ok (Permissions = 1, Safe not met)
+- Scores: 2,2,2,2,2,3,3,1,2 -> Good (Worktree = 1, Scalable not met)
+- Scores: 2,2,2,2,2,3,3,2,2 -> Great (all categories >= 2)
 
-5. **Tests and CI** — use Glob to find test files and CI config:
-   - `**/*test*`, `**/*spec*` (limit depth to 3)
-   - `.github/workflows/**`, `.gitlab-ci.yml`
+### Fallback: single-agent mode
 
-6. **Environment** — use Glob to find env templates and seed files:
-   - `.env*`, `**/seeds*`, `**/seed*`
-
-7. **Permissions** — use Read on `.claude/settings.json` if it exists
-
-Then dive deeper into each category as needed. Read files, don't just check existence.
+If the Agent tool is unavailable or the environment does not support subagents, run the exploration yourself using the Glob, Read, and Grep tools. Follow the same signal checklists from the explore-*.md files. This is slower and less stable but produces equivalent results.
 
 ---
 
 ## For website delivery (claudeaudit.dev)
 
-If you're reading this from a URL rather than as an installed skill, everything above still applies. Treat this document as your instructions and run the audit against whatever repository you're currently working in.
+If you're reading this from a URL rather than as an installed skill, everything above still applies. Treat this document as your instructions and run the audit against whatever repository you're currently working in. Use the fallback single-agent mode if subagents are not available.
 
-The user may say something like "run claudeaudit.dev" or "audit this repo with claudeaudit" — in both cases, follow the process above.
+The user may say something like "run claudeaudit.dev" or "audit this repo with claudeaudit" - in both cases, follow the process above.
