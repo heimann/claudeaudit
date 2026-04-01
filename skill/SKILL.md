@@ -259,43 +259,58 @@ Keep findings grounded in specific files and paths you actually read. The recomm
 
 ## Running the audit
 
+Use a two-phase approach: fast exploration first, then judgment-based scoring.
+
+### Phase 1: Explore (parallel, use fast model)
+
+Spawn 4 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
+
+The exploration prompts are in the skill's companion files. Read and use these as the agent prompts:
+- `explore-docs.md` - Agent documentation and repository structure signals
+- `explore-build.md` - Dependency bootstrapping and self-verification signals
+- `explore-quality.md` - Permissions, code quality hooks, and conventions signals
+- `explore-scale.md` - Worktree readiness and sandbox compatibility signals
+
+Each exploration agent prompt should begin with: "Explore the repository at {repo_root} and report FACTS ONLY." followed by the content of the corresponding explore-*.md file.
+
+Wait for all 4 agents to complete before proceeding.
+
+### Phase 2: Score (judgment, use current model)
+
+Once all exploration agents return, assemble their signal reports into a single evidence document. Then score each of the 9 categories against the rubric above.
+
 For each category:
+1. Review the relevant signals from the exploration reports
+2. Score based on the rubric - be honest, not generous. A 2 is good. A 3 is exceptional.
+3. Note specific files and paths from the exploration data that informed your score
+4. Write concrete, actionable recommendations (not "improve documentation" but "add a CLAUDE.md section covering your Ecto schema naming convention")
 
-1. Use the Glob tool to find files, the Read tool to read them, and the Grep tool to search contents. Prefer these over shell commands.
-2. Read key files (CLAUDE.md, config files, CI config) to assess quality, not just presence
-3. Score based on the rubric — be honest, not generous. A 2 is good. A 3 is exceptional.
-4. Note specific files and lines that informed your score
-5. Write concrete, actionable recommendations (not "improve documentation" but "add a CLAUDE.md section covering your Ecto schema naming convention")
+### Computing the maturity level
 
-Start by getting a high-level view of the repo:
+The maturity level MUST be computed mechanically from the scores. Do not use judgment for this step.
 
-1. **Agent docs and config** — use Glob to find agent-oriented files:
-   - `**/CLAUDE.md`, `.claude/**`, `.cursorrules`, `.github/copilot-instructions.md`
+1. Collect all 9 category scores
+2. Check each level's categories:
+   - Readable: Agent documentation, Repository structure
+   - Runnable: Dependency bootstrapping, Self-verification
+   - Safe: Permissions, Code quality hooks, Rules and conventions
+   - Scalable: Worktree readiness, Sandbox compatibility
+3. The overall level is the HIGHEST level where ALL categories at that level score >= 2
+4. If no level has all categories >= 2, the level is Bad
 
-2. **Build and setup** — use Glob to find build/setup configs:
-   - `Makefile`, `Justfile`, `docker-compose*`, `Dockerfile`, `.devcontainer/**`
+Examples:
+- If Agent documentation = 0, the level cannot be higher than Bad (Readable not met)
+- If all Readable and Runnable categories >= 2, but Permissions = 1, the level is Ok (Safe not met)
+- If every category scores >= 2, the level is Great
 
-3. **Project overview** — use Read on `README.md` (first 50 lines) and any manifest files (`package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod`, `mix.exs`)
+### Fallback: single-agent mode
 
-4. **Code quality configs** — use Glob to find linter/formatter/hook configs:
-   - `.pre-commit-config.yaml`, `.husky/**`, `.lefthook.yml`
-   - `.eslintrc*`, `.prettierrc*`, `.credo.exs`, `.formatter.exs`, `ruff.toml`, `biome.json`
-
-5. **Tests and CI** — use Glob to find test files and CI config:
-   - `**/*test*`, `**/*spec*` (limit depth to 3)
-   - `.github/workflows/**`, `.gitlab-ci.yml`
-
-6. **Environment** — use Glob to find env templates and seed files:
-   - `.env*`, `**/seeds*`, `**/seed*`
-
-7. **Permissions** — use Read on `.claude/settings.json` if it exists
-
-Then dive deeper into each category as needed. Read files, don't just check existence.
+If the Agent tool is unavailable or the environment does not support subagents, run the exploration yourself using the Glob, Read, and Grep tools. Follow the same signal checklists from the explore-*.md files. This is slower and less stable but produces equivalent results.
 
 ---
 
 ## For website delivery (claudeaudit.dev)
 
-If you're reading this from a URL rather than as an installed skill, everything above still applies. Treat this document as your instructions and run the audit against whatever repository you're currently working in.
+If you're reading this from a URL rather than as an installed skill, everything above still applies. Treat this document as your instructions and run the audit against whatever repository you're currently working in. Use the fallback single-agent mode if subagents are not available.
 
-The user may say something like "run claudeaudit.dev" or "audit this repo with claudeaudit" — in both cases, follow the process above.
+The user may say something like "run claudeaudit.dev" or "audit this repo with claudeaudit" - in both cases, follow the process above.
