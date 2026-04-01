@@ -7,6 +7,11 @@ description: Audit any repository for AI agent readiness — how well can Claude
 
 Assess how ready a repository is for autonomous AI agent work. Produce a structured audit with a maturity level (L0–L3), per-category scores, and concrete next steps.
 
+## Repository context
+
+- Recent commit stats: !`git log --oneline --stat -50 2>/dev/null | awk '/files? changed/ {n++; split($1,a," "); f+=a[1]} END {if(n>0) printf "%d commits, avg %.1f files/commit\n", n, f/n; else print "no git history"}'`
+- Largest source files: !`find . -name '*.py' -o -name '*.ts' -o -name '*.js' -o -name '*.go' -o -name '*.rs' -o -name '*.ex' -o -name '*.rb' -o -name '*.java' -o -name '*.dart' -o -name '*.swift' | grep -v node_modules | grep -v vendor | grep -v dist | grep -v build | grep -v '.next' | head -500 | xargs wc -l 2>/dev/null | sort -rn | head -11`
+
 ## How to run
 
 1. Identify the repository root (the directory containing `.git/`)
@@ -458,9 +463,7 @@ Each agent's prompt should begin with "Explore the repository at {repo_root} and
 - Search test files for patterns suggesting non-determinism: `sleep`, `time.sleep`, `setTimeout`, `retry`, `retries`, `flaky`, network calls (`fetch`, `http`, `requests.get`, `axios`), `random`/`Math.random` without seeding
 - Are there known-flaky test annotations? Do test configs set timeouts or retries?
 - Are external services mocked in tests? (check for mock/stub/fake patterns)
-- `git log --oneline --stat -50` (report average files changed per commit)
-- Find the largest source files by line count (top 10, excluding generated/vendor/lock files)
-- Are there files > 500 lines? List them with line counts.
+- Are there files > 500 lines? List them with line counts. (Note: git log stats and largest file data are pre-injected in the "Repository context" section above - use that data rather than running commands)
 - Check for barrel exports or public API definitions (__init__.py with __all__, index.ts re-exports)
 
 Each agent should output a structured facts-only report. Wait for all 5 agents to complete before proceeding.
