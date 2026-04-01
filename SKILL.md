@@ -22,7 +22,7 @@ Assess how ready a repository is for autonomous AI agent work. Produce a structu
 - **Good — Safe**: The agent can work confidently (linting hooks, permissions, formatting rules)
 - **Great — Scalable**: The agent can run in parallel sessions (worktrees, sandboxes, no collisions)
 
-Overall level = the highest level where ALL categories at that level score ≥ 2.
+Overall level is computed mechanically - see "Computing the maturity level" below. Do not eyeball it.
 
 ---
 
@@ -287,21 +287,34 @@ For each category:
 
 ### Computing the maturity level
 
-The maturity level MUST be computed mechanically from the scores. Do not use judgment for this step.
+The maturity level MUST be computed mechanically from the scores. Do not use judgment for this step. Follow this algorithm exactly:
 
-1. Collect all 9 category scores
-2. Check each level's categories:
-   - Readable: Agent documentation, Repository structure
-   - Runnable: Dependency bootstrapping, Self-verification
-   - Safe: Permissions, Code quality hooks, Rules and conventions
-   - Scalable: Worktree readiness, Sandbox compatibility
-3. The overall level is the HIGHEST level where ALL categories at that level score >= 2
-4. If no level has all categories >= 2, the level is Bad
+```
+readable = Agent documentation >= 2 AND Repository structure >= 2
+runnable = Dependency bootstrapping >= 2 AND Self-verification >= 2
+safe     = Permissions >= 2 AND Code quality hooks >= 2 AND Rules and conventions >= 2
+scalable = Worktree readiness >= 2 AND Sandbox compatibility >= 2
+
+if readable AND runnable AND safe AND scalable:
+    level = Great
+elif readable AND runnable AND safe:
+    level = Good
+elif readable AND runnable:
+    level = Ok
+elif readable:
+    level = Bad (Readable)
+else:
+    level = Bad
+```
+
+Levels are cumulative. Each level requires all lower tiers to also pass. You cannot skip a level: a repo with great Scalable scores but poor Readable scores is still Bad.
 
 Examples:
-- If Agent documentation = 0, the level cannot be higher than Bad (Readable not met)
-- If all Readable and Runnable categories >= 2, but Permissions = 1, the level is Ok (Safe not met)
-- If every category scores >= 2, the level is Great
+- Scores: 0,2,2,2,2,3,3,2,2 -> Bad (Agent docs = 0, Readable not met)
+- Scores: 2,2,1,2,2,3,3,2,2 -> Bad (Dep bootstrap = 1, Runnable not met; Readable passes but level stays Bad since Runnable blocks Ok)
+- Scores: 2,2,2,2,1,3,3,2,2 -> Ok (Permissions = 1, Safe not met)
+- Scores: 2,2,2,2,2,3,3,1,2 -> Good (Worktree = 1, Scalable not met)
+- Scores: 2,2,2,2,2,3,3,2,2 -> Great (all categories >= 2)
 
 ### Fallback: single-agent mode
 
