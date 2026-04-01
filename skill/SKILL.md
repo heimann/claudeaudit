@@ -372,6 +372,8 @@ Order the sub-score blocks by impact: lowest scores first, and within ties, prio
 
 Keep findings grounded in specific files and paths you actually read. The recommendations should be copy-pasteable into a task list.
 
+After presenting the report, offer to fix the gaps step by step. Draft a plan that starts with the lowest-hanging fruit and works up, ordered by impact (fixes that unblock higher maturity levels first). Ask the user which items they want to tackle and what scope they're comfortable with before starting any work.
+
 ## Running the audit
 
 Use a two-phase approach: fast exploration first, then judgment-based scoring.
