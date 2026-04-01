@@ -144,18 +144,19 @@ Are there automated guardrails the agent can lean on?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No linter, no formatter, no pre-commit hooks |
+| 0 | No linter, no formatter, no hooks of any kind |
 | 1 | Linter/formatter config exists but no automation (agent has to know to run it) |
-| 2 | Pre-commit hooks or CI checks enforce formatting/linting. Config is consistent (e.g., `.credo.exs` matches what CI runs) |
-| 3 | Hooks are set up AND documented in CLAUDE.md. Agent knows: what to run before committing, what format to follow, what will fail CI. Lint/format commands are in the permissions allowlist |
+| 2 | Automated enforcement exists: git hooks (pre-commit, husky, lefthook), Claude hooks (PreToolUse/PostToolUse in settings.json), or CI checks. Config is consistent with what CI runs |
+| 3 | Hooks are set up AND documented in agent docs. Agent knows: what runs automatically, what format to follow, what will fail CI. Lint/format commands are in the permissions allowlist |
 
 Signals to check:
-- `.pre-commit-config.yaml`, `.husky/`, `.lefthook.yml`
+- Claude hooks: PreToolUse/PostToolUse in `.claude/settings.json` (e.g., block --no-verify, auto-format)
+- Git hooks: `.pre-commit-config.yaml`, `.husky/`, `.lefthook.yml`
 - Linter configs: `.credo.exs`, `.eslintrc`, `ruff.toml`, `rustfmt.toml`
 - Formatter configs: `.formatter.exs`, `.prettierrc`
-- Whether CLAUDE.md mentions lint/format commands
+- Whether agent docs mention lint/format commands
 - CI pipeline includes lint/format checks
-- Consistency: do the local hooks match CI checks?
+- When recommending hooks, prefer Claude hooks (PreToolUse/PostToolUse) over git hooks - they are more relevant for agent workflows and don't require git hook installation
 - Whether lint/format commands are configured for minimal output on success (agents don't need 200 lines of "all clear")
 
 #### 7. Rules and conventions (`/3`)
