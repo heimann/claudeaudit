@@ -36,16 +36,18 @@ Check for the presence and quality of agent-oriented documentation. This is dist
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No CLAUDE.md, no .claude/ directory, no agent-specific docs |
-| 1 | A CLAUDE.md exists at root but is thin (< 20 lines, or just boilerplate) |
-| 2 | CLAUDE.md covers project purpose, architecture, conventions, and how to run/test - agent can orient itself without reading every source file. Or equivalent in .cursorrules / .github/copilot-instructions.md. A single @import to a comprehensive file (e.g., AGENTS.md) counts if that file covers the same ground |
-| 3 | Multi-level agent docs: root CLAUDE.md plus sub-module documentation (subdirectory CLAUDE.md files, or @imports that pull in module-specific guidance). Docs cover not just what to do but what NOT to do (anti-patterns, decision rationale). Score 3 requires depth across the codebase, not just one thorough top-level file |
+| 0 | No agent-oriented documentation of any kind. No CLAUDE.md, no .agents/, no .cursorrules, no copilot-instructions.md |
+| 1 | Agent docs exist but are thin (< 20 lines, or just boilerplate). Or: a substantial agent skill exists (e.g., .agents/skills/) but no root-level orientation doc covering project architecture and conventions |
+| 2 | Agent docs cover project purpose, architecture, conventions, and how to run/test - agent can orient itself without reading every source file. Accepted formats: CLAUDE.md, AGENTS.md, .agents/skills/ with comprehensive SKILL.md, .cursorrules, .github/copilot-instructions.md, or any structured agent-oriented doc. A single @import to a comprehensive file counts if that file covers the same ground |
+| 3 | Multi-level agent docs: root-level orientation plus sub-module documentation (subdirectory docs, @imports, or skill reference files that provide module-specific guidance). Docs cover not just what to do but what NOT to do (anti-patterns, decision rationale). Score 3 requires depth across the codebase, not just one thorough top-level file |
 
 Signals to check:
-- `CLAUDE.md` or `.claude/` at repo root
-- Subdirectory `CLAUDE.md` files (e.g., `src/CLAUDE.md`, `lib/CLAUDE.md`)
+- `CLAUDE.md`, `AGENTS.md`, or `.claude/` at repo root
+- `.agents/`, `.agents/skills/` with skill files
+- Subdirectory agent docs (e.g., `src/CLAUDE.md`, `lib/CLAUDE.md`)
 - `.cursorrules`, `.github/copilot-instructions.md`, or similar
 - Whether docs mention: architecture, conventions, testing approach, common pitfalls
+- If agent docs exist in a non-CLAUDE.md format (AGENTS.md, .agents/skills/, .cursorrules), recommend adding a CLAUDE.md with an @import pointing to the existing docs. This makes the content discoverable by Claude Code without duplicating it
 
 #### 2. Repository structure (`/3`)
 
@@ -117,19 +119,19 @@ Is the agent's access properly scoped?
 
 | Score | Criteria |
 |-------|----------|
-| 0 | No `.claude/settings.json` or permissions config. Agent will hit permission prompts on first action |
-| 1 | `.claude/settings.json` exists but is overly permissive (e.g., allows all bash) or overly restrictive (blocks test runners) |
-| 2 | `allowedTools` scoped to what the agent needs: test commands, build tools, linters are pre-approved. Dangerous operations are not in the allow list |
-| 3 | All of score 2, plus at least two of: (a) explicit `blockedTools` for dangerous operations, (b) custom skills or hooks for project workflows, (c) MCP servers configured, (d) tool access documented in CLAUDE.md. Permissions show intentional design, not just a basic allow list |
+| 0 | No agent permissions config of any kind. No `.claude/settings.json`, no `.agents/` capability scoping, no tool restrictions in any agent config format |
+| 1 | Agent permissions config exists but is overly permissive (e.g., allows all bash) or overly restrictive (blocks test runners). Or: agent skills/docs exist that implicitly scope work but no explicit permission boundaries |
+| 2 | Agent tool access is explicitly scoped: test commands, build tools, linters are pre-approved, dangerous operations are gated. Accepted formats: `.claude/settings.json` with `allowedTools`, `.agents/` with capability definitions, `.cursorrules` with tool restrictions, or equivalent |
+| 3 | All of score 2, plus at least two of: (a) explicit deny list for dangerous operations, (b) custom skills or hooks for project workflows, (c) MCP or tool servers configured, (d) tool access documented in agent docs. Permissions show intentional design, not just a basic allow list |
 
 Signals to check:
-- `.claude/settings.json` at repo root
-- `allowedTools` present with specific command patterns (not overly broad like `Bash(*)`)
-- `blockedTools` for dangerous operations (force push, rm -rf, publish)
-- Custom skills in `.claude/skills/` or hooks in settings
-- Whether test/build/lint commands are pre-approved
-- MCP server configs (`.claude/mcp.json` or similar)
-- Tool access documented in CLAUDE.md
+- `.claude/settings.json` at repo root (allowedTools, blockedTools)
+- `.agents/` with capability scoping or permission boundaries
+- `.cursorrules` with tool restrictions
+- Custom skills (`.claude/skills/`, `.claude/commands/`, `.agents/skills/`)
+- Whether test/build/lint commands are pre-approved in any config
+- MCP or tool server configs
+- Tool access documented in agent docs
 
 #### 6. Code quality hooks (`/3`)
 
