@@ -290,8 +290,8 @@ Does the same command give the same result every time? Flaky tests, time-depende
 
 | Score | Criteria |
 |-------|----------|
-| 0 | Tests contain network calls to external services, no mocking. Or: known-flaky tests with no quarantine strategy |
-| 1 | Most tests are stable but some have timing dependencies (sleeps, retries, timeouts). External deps are partially mocked. Lock files present |
+| 0 | Tests depend on external services (third-party APIs, cloud endpoints) with no mocking. Or: known-flaky tests with no quarantine strategy. Note: tests hitting a local test server started by a fixture are NOT external - they are a timing dependency (score 1), not a network dependency (score 0) |
+| 1 | Most tests are stable but some have timing dependencies (sleeps, retries, timeouts, or local HTTP server fixtures). External deps are partially mocked. Lock files present |
 | 2 | Tests are isolated: external deps mocked/stubbed, no sleeps or timing-dependent assertions, no network calls in test files. Lock files used consistently |
 | 3 | Full determinism: seeded randomness, hermetic builds, no network in tests. Any non-determinism is explicitly quarantined (marked flaky, skipped in CI, or run separately) |
 
@@ -310,8 +310,8 @@ Can the agent understand and change one part of the codebase without loading eve
 | Score | Criteria |
 |-------|----------|
 | 0 | God files (> 1000 lines doing multiple things), circular dependencies, global mutable state. Average commit touches 5+ files. Agent must understand the entire codebase to change anything |
-| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files |
-| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
+| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files. Note: if any god file (> 1000 lines) exists, score cannot be higher than 1 regardless of other signals |
+| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines, no files > 1000 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
 | 3 | Strict module boundaries enforced by tooling. Files are focused (< 300 lines typical). Dependency direction is one-way. Agent can confidently change one module by reading only that module's files |
 
 Signals to check:
