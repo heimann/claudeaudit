@@ -221,6 +221,109 @@ Signals to check:
 
 ---
 
+## Ergonomics
+
+A separate dimension from config readiness. Config readiness measures whether the repo is *set up* for agents. Ergonomics measures whether the repo is *pleasant and productive* for agents to work in. Config is a baseline you set up once; ergonomics improves continuously over time.
+
+Ergonomics scores are reported as flat scores (no maturity level) and do not affect the config readiness maturity level. They are independent dimensions.
+
+All ergonomics signals are measured passively (reading files, git metadata, file stats). No application code is executed.
+
+### 10. Feedback loop (`/3`)
+
+How fast can the agent verify its change is correct? "Tests exist" is not the same as "the agent can verify a change in under 30 seconds."
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No way to verify changes, or test suite is monolithic with no scoping |
+| 1 | Tests exist and run locally but are all-or-nothing. No documented way to run a single test or scoped subset |
+| 2 | Scoped test command exists and is documented (e.g., `pytest path::test`, `mix test file:line`). Fast lint or typecheck available as a pre-test check |
+| 3 | Scoped tests are the documented default. Watch mode or incremental build configured. Agent can get feedback on a single-file change in seconds, not minutes |
+
+Signals to check:
+- Whether a scoped test command is documented (in CLAUDE.md, README, or test config)
+- Watch mode config (jest --watch, mix test --watch, tsc --watch, nodemon)
+- Whether tests support parallel execution
+- Test suite size (number of test files as a rough proxy for suite runtime)
+- Whether there's a fast typecheck or lint that runs before the full suite
+
+### 11. Error signal quality (`/3`)
+
+When something breaks, does the agent get a useful signal or noise? This category is harder to assess passively - score based on configuration and framework choice rather than actual output.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No test framework, or a framework known for cryptic output with no customization |
+| 1 | Standard framework with default error output. No custom reporters, no stack trace filtering, no error formatters configured |
+| 2 | Configured for concise output: custom test reporter, `--tb=short` or equivalent as default, stack trace filtering, or a framework with naturally concise errors (Go, Rust, Elm) |
+| 3 | Custom error formatters or structured error types with context fields. Test output is explicitly optimized for readability (custom reporters, filtered frames, expected-vs-actual formatting) |
+
+Signals to check:
+- Test reporter configuration (mocha reporter, pytest conftest, jest config)
+- Stack trace filtering config (--tb=short defaults, --no-stack-trace)
+- Custom exception/error classes with context fields
+- Framework choice (Go/Rust/Elm naturally concise vs raw Java/C++ stack traces)
+- Error formatter or pretty-printer configs
+
+### 12. Type system and static analysis (`/3`)
+
+Does the codebase give the agent fast, reliable feedback through types and static analysis before running anything?
+
+| Score | Criteria |
+|-------|----------|
+| 0 | No type system, no static analysis. Agent discovers mistakes only at runtime. Or: dynamically typed language with no type annotations and no linter |
+| 1 | Types exist but are partial, loose, or not enforced. TypeScript without strict mode, Python with sparse hints and no mypy, prevalent `any`/`Any` usage |
+| 2 | Types cover critical paths and are enforced in CI. Typecheck runs as part of the dev workflow. Major interfaces are well-typed. Minimal `any` usage |
+| 3 | Strict type checking across the codebase (TypeScript strict, mypy strict, Rust, Go). Types serve as documentation - agent can understand function contracts from signatures alone. Static analysis catches common mistakes before any code runs |
+
+Signals to check:
+- TypeScript: `strict: true` in tsconfig.json
+- Python: mypy/pyright config with strict mode
+- Rust, Go: inherently typed (score based on whether the type system is leveraged well)
+- Prevalence of `any` / `Any` / untyped functions
+- Whether typecheck runs in CI
+- Type coverage tooling configured
+
+### 13. Determinism (`/3`)
+
+Does the same command give the same result every time? Flaky tests, time-dependent behavior, and network calls in tests mean the agent cannot trust its own feedback loop.
+
+| Score | Criteria |
+|-------|----------|
+| 0 | Tests contain network calls to external services, no mocking. Or: known-flaky tests with no quarantine strategy |
+| 1 | Most tests are stable but some have timing dependencies (sleeps, retries, timeouts). External deps are partially mocked. Lock files present |
+| 2 | Tests are isolated: external deps mocked/stubbed, no sleeps or timing-dependent assertions, no network calls in test files. Lock files used consistently |
+| 3 | Full determinism: seeded randomness, hermetic builds, no network in tests. Any non-determinism is explicitly quarantined (marked flaky, skipped in CI, or run separately) |
+
+Signals to check:
+- `sleep`, `time.sleep`, `setTimeout` patterns in test files
+- `retry`, `retries`, `flaky` annotations in test configs
+- Network calls in test files (fetch, http, requests, axios)
+- Random usage without seeding in test files
+- Mock/stub/fake patterns in test files (indicates external deps are isolated)
+- Test config timeouts and retry settings
+
+### 14. Change locality (`/3`)
+
+Can the agent understand and change one part of the codebase without loading everything? Combines coupling (how many files must change) with digestibility (how many files must be read).
+
+| Score | Criteria |
+|-------|----------|
+| 0 | God files (> 1000 lines doing multiple things), circular dependencies, global mutable state. Average commit touches 5+ files. Agent must understand the entire codebase to change anything |
+| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files |
+| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
+| 3 | Strict module boundaries enforced by tooling. Files are focused (< 300 lines typical). Dependency direction is one-way. Agent can confidently change one module by reading only that module's files |
+
+Signals to check:
+- Largest source files by line count (top 10, excluding generated/vendor/lock files)
+- Average files changed per commit (last 50 commits via git log --stat)
+- Barrel exports or public API definitions (__init__.py, index.ts re-exports)
+- Circular dependencies between sibling modules
+- Directory nesting depth
+- God files (files > 1000 lines)
+
+---
+
 ## Output format
 
 Produce the audit as a structured report:
@@ -242,9 +345,14 @@ Safe
 
 Scalable
   Worktree readiness   {s}/3    Sandbox compat.       {s}/3
+
+Ergonomics
+  Feedback loop        {s}/3    Error signal quality  {s}/3
+  Type system          {s}/3    Determinism           {s}/3
+  Change locality      {s}/3
 ```
 
-Then, for every category that scored below 3, include a sub-score block with findings and a concrete recommendation:
+Then, for every category that scored below 3 (both config and ergonomics), include a sub-score block with findings and a concrete recommendation:
 
 ```
 {Category name} {score}/3
@@ -263,13 +371,14 @@ Use a two-phase approach: fast exploration first, then judgment-based scoring.
 
 ### Phase 1: Explore (parallel, use fast model)
 
-Spawn 4 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
+Spawn 5 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
 
 The exploration prompts are in the skill's companion files. Read and use these as the agent prompts:
 - `explore-docs.md` - Agent documentation and repository structure signals
 - `explore-build.md` - Dependency bootstrapping and self-verification signals
 - `explore-quality.md` - Permissions, code quality hooks, and conventions signals
 - `explore-scale.md` - Worktree readiness and sandbox compatibility signals
+- `explore-ergonomics.md` - Feedback loop, error quality, type system, determinism, and change locality signals
 
 Each exploration agent prompt should begin with: "Explore the repository at {repo_root} and report FACTS ONLY." followed by the content of the corresponding explore-*.md file.
 
