@@ -317,10 +317,15 @@ Can the agent understand and change one part of the codebase without loading eve
 
 | Score | Criteria |
 |-------|----------|
-| 0 | God files (> 1000 lines doing multiple things), circular dependencies, global mutable state. Average commit touches 5+ files. Agent must understand the entire codebase to change anything |
-| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files. Note: if any god file (> 1000 lines) exists, score cannot be higher than 1 regardless of other signals |
-| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines, no files > 1000 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
+| 0 | God files (large files doing multiple unrelated things), circular dependencies, global mutable state. Average commit touches 5+ files. Agent must understand the entire codebase to change anything |
+| 1 | Some module boundaries but files are large (many > 500 lines). Cross-module dependencies are common. Average commit touches 3-5 files |
+| 2 | Clear module boundaries with defined interfaces. Most files are < 500 lines. Average commit touches 1-3 files. Modules have clear entry points (barrel exports, __init__.py with __all__) |
 | 3 | Strict module boundaries enforced by tooling. Files are focused (< 300 lines typical). Dependency direction is one-way. Agent can confidently change one module by reading only that module's files |
+
+Large files (> 1000 lines) are NOT automatically god files. Use judgment:
+- Generated files, data files, type definitions, and test fixtures that are large but single-purpose: do NOT penalize. Note them as generated/data in the report.
+- Files that mix multiple concerns (routing + business logic + helpers, or a class that handles UI + state + networking): these are god files. Penalize.
+- The test: if an agent needs to change one behavior in the file, does it need to understand the whole file? If yes, it's a god file.
 
 Signals to check:
 - Largest source files by line count (top 10, excluding generated/vendor/lock files)
