@@ -336,43 +336,27 @@ Signals to check:
 Produce the audit as a structured report:
 
 ```
-claudeaudit - {repo_name} - {date}
+claudeaudit - {repo_name}
 
-{Bad|Ok|Good|Great} - {level_name}
+{Level} ({next_level_blocker})
 
-Readable
-  Agent documentation  {s}/3    Repository structure  {s}/3
+  docs {s}  structure {s}  bootstrap {s}  tests {s}  perms {s}  hooks {s}  rules {s}  worktree {s}  sandbox {s}
+  feedback {s}  errors {s}  types {s}  determinism {s}  locality {s}
 
-Runnable
-  Dependency bootstrap {s}/3    Self-verification     {s}/3
-
-Safe
-  Permissions          {s}/3    Code quality hooks    {s}/3
-  Rules & conventions  {s}/3
-
-Scalable
-  Worktree readiness   {s}/3    Sandbox compat.       {s}/3
-
-Ergonomics
-  Feedback loop        {s}/3    Error signal quality  {s}/3
-  Type system          {s}/3    Determinism           {s}/3
-  Change locality      {s}/3
+Top fixes:
+1. {Concrete action} -> {what it unlocks}
+2. {Concrete action} -> {what it unlocks}
+3. {Concrete action} -> {what it unlocks}
 ```
 
-Then, for every category that scored below 3 (both config and ergonomics), include a sub-score block with findings and a concrete recommendation:
+Guidelines for the report:
+- **Level line**: Show the level (Bad/Ok/Good/Great) and what's blocking the next level. E.g., "Ok (permissions blocks Safe)" or "Great (all tiers passed)".
+- **Score line**: Compact single-line scores, just the numbers. No /3 suffix, no category full names. Keep it scannable.
+- **Top fixes**: List only the 3-5 highest-impact fixes, ordered by what unblocks the next maturity level first. Each fix should be one concrete sentence with a specific file or command, not a paragraph. Include what it unlocks (e.g., "-> unlocks Safe", "-> types 1->2").
+- **No detailed sub-score blocks by default**. The top fixes ARE the actionable output. If the user asks for details on a specific category, provide them then.
+- Keep the entire report under 15 lines. Brevity is the point.
 
-```
-{Category name} {score}/3
-  {What exists — specific files found, what they cover}
-  {What's missing or weak — specific gaps}
-  → {Concrete next step. Not "improve X" but "add Y to Z file covering W pattern."}
-```
-
-Order the sub-score blocks by impact: lowest scores first, and within ties, prioritize categories that unblock higher maturity levels. Skip categories that scored 3 — those are fine, no need to list them.
-
-Keep findings grounded in specific files and paths you actually read. The recommendations should be copy-pasteable into a task list.
-
-After presenting the report, offer to fix the gaps step by step. Draft a plan that starts with the lowest-hanging fruit and works up, ordered by impact (fixes that unblock higher maturity levels first). Ask the user which items they want to tackle and what scope they're comfortable with before starting any work.
+After presenting the report, offer to fix the gaps step by step. Start with the fix that unblocks the next maturity level. Ask the user what they want to tackle before starting any work.
 
 ## Running the audit
 
