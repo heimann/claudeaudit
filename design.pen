@@ -33,7 +33,8 @@
               "fill": "#565f89",
               "content": "David Heimann",
               "fontFamily": "JetBrains Mono",
-              "fontSize": 12
+              "fontSize": 12,
+              "fontWeight": "normal"
             },
             {
               "type": "frame",
@@ -306,7 +307,8 @@
                           "fill": "#c0caf5",
                           "content": "Readable",
                           "fontFamily": "JetBrains Mono",
-                          "fontSize": 12.75
+                          "fontSize": 12.75,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -366,7 +368,8 @@
                           "fill": "#c0caf5",
                           "content": "Runnable",
                           "fontFamily": "JetBrains Mono",
-                          "fontSize": 12.75
+                          "fontSize": 12.75,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -426,7 +429,8 @@
                           "fill": "#c0caf5",
                           "content": "Safe",
                           "fontFamily": "JetBrains Mono",
-                          "fontSize": 12.75
+                          "fontSize": 12.75,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -486,7 +490,8 @@
                           "fill": "#c0caf5",
                           "content": "Scalable",
                           "fontFamily": "JetBrains Mono",
-                          "fontSize": 12.75
+                          "fontSize": 12.75,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -539,6 +544,7 @@
                   "content": "WHAT IT CHECKS",
                   "fontFamily": "JetBrains Mono",
                   "fontSize": 11.25,
+                  "fontWeight": "normal",
                   "letterSpacing": 0.67
                 },
                 {
@@ -739,6 +745,7 @@
                   "content": "EXAMPLE OUTPUT",
                   "fontFamily": "JetBrains Mono",
                   "fontSize": 11.25,
+                  "fontWeight": "normal",
                   "letterSpacing": 0.67
                 },
                 {
@@ -1331,7 +1338,8 @@
               "fill": "#999999",
               "content": "David Heimann",
               "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
-              "fontSize": 13
+              "fontSize": 13,
+              "fontWeight": "normal"
             },
             {
               "type": "frame",
@@ -1374,7 +1382,8 @@
                   "content": "A skill that audits your repository for AI agent readiness. How well can Claude Code understand, run, verify, and scale across your codebase?",
                   "lineHeight": 1.7,
                   "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
-                  "fontSize": 15
+                  "fontSize": 15,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
@@ -1385,7 +1394,8 @@
                   "content": "Nine categories scored 0-3. Four levels. Works as an installable skill or just tell your agent to fetch this page.",
                   "lineHeight": 1.7,
                   "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
-                  "fontSize": 15
+                  "fontSize": 15,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -1410,7 +1420,8 @@
                   "fill": "#999999",
                   "content": "Install",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "frame",
@@ -1492,7 +1503,8 @@
                       "fill": "#999999",
                       "content": "Or just tell Claude to run it",
                       "fontFamily": "Inter",
-                      "fontSize": 13
+                      "fontSize": 13,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "frame",
@@ -1553,6 +1565,7 @@
                   "content": "Supports Claude Code, Codex, Cursor, and more.",
                   "fontFamily": "Inter",
                   "fontSize": 13,
+                  "fontWeight": "normal",
                   "fontStyle": "italic"
                 }
               ]
@@ -1617,7 +1630,8 @@
                           "fill": "#666666",
                           "content": "the agent can understand the repo",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -1668,7 +1682,8 @@
                           "fill": "#666666",
                           "content": "the agent can bootstrap and verify the app",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -1719,7 +1734,8 @@
                           "fill": "#666666",
                           "content": "the agent can work confidently without breaking things",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -1770,7 +1786,8 @@
                           "fill": "#666666",
                           "content": "the agent can run in parallel sessions",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -1799,7 +1816,8 @@
                   "fill": "#999999",
                   "content": "What it checks",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "rectangle",
@@ -1858,7 +1876,8 @@
                       "width": "fill_container",
                       "content": "Agent documentation - CLAUDE.md quality, sub-directory docs",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -1868,7 +1887,8 @@
                       "width": "fill_container",
                       "content": "Repository structure - layout clarity, entry points, boundaries",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -1906,7 +1926,8 @@
                       "width": "fill_container",
                       "content": "Dependency bootstrapping - clone to running in one command",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -1916,7 +1937,8 @@
                       "width": "fill_container",
                       "content": "Self-verification - tests, E2E coverage, seed data",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -1954,7 +1976,8 @@
                       "width": "fill_container",
                       "content": "Permissions - .claude/settings.json, scoped tool access",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -1964,7 +1987,8 @@
                       "width": "fill_container",
                       "content": "Code quality hooks - pre-commit, lint, format automation",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -1974,7 +1998,8 @@
                       "width": "fill_container",
                       "content": "Rules & conventions - patterns, naming, architecture decisions",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -2012,7 +2037,8 @@
                       "width": "fill_container",
                       "content": "Worktree readiness - no hardcoded paths, configurable ports",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -2022,7 +2048,8 @@
                       "width": "fill_container",
                       "content": "Sandbox compatibility - containerized dev, mockable deps",
                       "fontFamily": "Inter",
-                      "fontSize": 14
+                      "fontSize": 14,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -2049,7 +2076,8 @@
                   "fill": "#999999",
                   "content": "Example output",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "rectangle",
@@ -2509,7 +2537,8 @@
                   "fill": "#666666",
                   "content": "dmeh.net",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
@@ -2517,7 +2546,8 @@
                   "fill": "#666666",
                   "content": "source",
                   "fontFamily": "Inter",
-                  "fontSize": 13
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -2924,7 +2954,8 @@
                   "fill": "#666666",
                   "content": "Scalable",
                   "fontFamily": "Inter",
-                  "fontSize": 15
+                  "fontSize": 15,
+                  "fontWeight": "normal"
                 },
                 {
                   "type": "text",
