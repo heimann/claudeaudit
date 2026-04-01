@@ -375,7 +375,7 @@ Use a two-phase approach: fast exploration first, then judgment-based scoring.
 
 Spawn 5 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
 
-Each agent's prompt should begin with "Explore the repository at {repo_root} and report FACTS ONLY." followed by one of these signal checklists:
+Each agent's prompt should begin with "Explore the repository at {repo_root} and report FACTS ONLY. Use the Glob tool to find files, the Read tool to read them, and the Grep tool to search contents. Prefer these over shell commands." followed by one of these signal checklists:
 
 **Agent 1: Documentation and Structure**
 - Does CLAUDE.md exist at root? If yes, how many lines? What does it cover?
