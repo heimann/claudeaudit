@@ -9,8 +9,8 @@ Assess how ready a repository is for autonomous AI agent work. Produce a structu
 
 ## Repository context
 
-- Recent commit stats: !`git log --oneline --stat -50 2>/dev/null | awk '/files? changed/ {n++; split($1,a," "); f+=a[1]} END {if(n>0) printf "%d commits, avg %.1f files/commit\n", n, f/n; else print "no git history"}'`
-- Largest source files: !`find . -name '*.py' -o -name '*.ts' -o -name '*.js' -o -name '*.go' -o -name '*.rs' -o -name '*.ex' -o -name '*.rb' -o -name '*.java' -o -name '*.dart' -o -name '*.swift' | grep -v node_modules | grep -v vendor | grep -v dist | grep -v build | grep -v '.next' | head -500 | xargs wc -l 2>/dev/null | sort -rn | head -11`
+- Recent commits: !`git log --oneline -20`
+- File count: !`git ls-files --cached --others --exclude-standard | wc -l`
 
 ## How to run
 
