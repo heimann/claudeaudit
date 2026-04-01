@@ -1,0 +1,3634 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Frame",
+      "clip": true,
+      "width": 800,
+      "fill": "#1a1b26",
+      "layout": "vertical",
+      "padding": [
+        72,
+        0,
+        80,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "mBS38",
+          "name": "content",
+          "width": 580,
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "text",
+              "id": "oF517",
+              "name": "header",
+              "fill": "#565f89",
+              "content": "David Heimann",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 12
+            },
+            {
+              "type": "frame",
+              "id": "3URAW",
+              "name": "title",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                40,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "VXH6T",
+                  "name": "titleText",
+                  "fill": "#c0caf5",
+                  "content": "claudeaudit",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 14.25,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tf2i5",
+              "name": "intro",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 11,
+              "padding": [
+                16,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "4Wu8L",
+                  "name": "introP1",
+                  "fill": "#a9b1d6",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "A skill that audits your repository for AI agent readiness. How well can Claude Code understand, run, verify, and scale across your codebase?",
+                  "lineHeight": 1.75,
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 12.75,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "gqN31",
+                  "name": "introP2",
+                  "fill": "#a9b1d6",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nine categories scored 0-3. Four levels: bad, ok, good, great. Works as an installable skill or just tell your agent to fetch this page.",
+                  "lineHeight": 1.75,
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 12.75,
+                  "fontWeight": "300"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "0uhld",
+              "name": "installSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "padding": [
+                40,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Nnzzn",
+                  "name": "installLabel1",
+                  "fill": "#565f89",
+                  "content": "Install",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11.25,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "frame",
+                  "id": "CubwZ",
+                  "name": "cmd1",
+                  "width": "fill_container",
+                  "fill": "#1d1e2a",
+                  "cornerRadius": 4,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#2a2b3d"
+                  },
+                  "gap": 8,
+                  "padding": [
+                    11,
+                    15
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "owdnD",
+                      "name": "cmd1Prompt",
+                      "fill": "#565f89",
+                      "content": "$",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pN8Ht",
+                      "name": "cmd1Text",
+                      "fill": "#c0caf5",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "npx claudeaudit",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "f53zN",
+                      "name": "cmd1Copy",
+                      "fill": "#565f89",
+                      "content": "copy",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 9.75,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "k0iUe",
+                  "name": "installBlock2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": [
+                    10,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TR1Js",
+                      "name": "installLabel2",
+                      "fill": "#565f89",
+                      "content": "Or just tell Claude to run it",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11.25,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "8LoGx",
+                      "name": "cmd2",
+                      "width": "fill_container",
+                      "fill": "#1d1e2a",
+                      "cornerRadius": 4,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#2a2b3d"
+                      },
+                      "padding": [
+                        11,
+                        15
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HRz3P",
+                          "name": "cmd2Text",
+                          "fill": "#c0caf5",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "fetch claudeaudit.dev/SKILL.md and run it against this repo",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "j3fnq",
+                          "name": "cmd2Copy",
+                          "fill": "#565f89",
+                          "content": "copy",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 9.75,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "sRqgo",
+                  "name": "note",
+                  "fill": "#565f89",
+                  "content": "Supports Claude Code, Codex, Cursor, and more.",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 10.5,
+                  "fontWeight": "300",
+                  "fontStyle": "italic"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Jd9Ej",
+              "name": "levels",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": [
+                40,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "EfUiS",
+                  "name": "lv1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "RCa8H",
+                      "name": "lv1line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "cIT3k",
+                          "fill": "#f7768e",
+                          "content": "Bad",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.5,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "lfbWF",
+                          "fill": "#c0caf5",
+                          "content": "Readable",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12.75
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "7oXW9",
+                      "name": "lv1desc",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        42
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "8zAGY",
+                          "fill": "#565f89",
+                          "content": "the agent can understand the repo",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11.25,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "y04mZ",
+                  "name": "lv2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "4ZPQ8",
+                      "name": "lv2line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hecx9",
+                          "fill": "#e0af68",
+                          "content": "Ok",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.5,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "VEBtF",
+                          "fill": "#c0caf5",
+                          "content": "Runnable",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12.75
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "T8XWC",
+                      "name": "lv2desc",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        42
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rVNye",
+                          "fill": "#565f89",
+                          "content": "the agent can bootstrap and verify the app",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11.25,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "C0nA1",
+                  "name": "lv3",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "n39Ej",
+                      "name": "lv3line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "O7bK8",
+                          "fill": "#7aa2f7",
+                          "content": "Good",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.5,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "8FVtx",
+                          "fill": "#c0caf5",
+                          "content": "Safe",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12.75
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zvnsU",
+                      "name": "lv3desc",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        42
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "wUfYl",
+                          "fill": "#565f89",
+                          "content": "the agent can work confidently without breaking things",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11.25,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "tH5XT",
+                  "name": "lv4",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "0YyPH",
+                      "name": "lv4line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YjX8q",
+                          "fill": "#9ece6a",
+                          "content": "Great",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.5,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "TNHS8",
+                          "fill": "#c0caf5",
+                          "content": "Scalable",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 12.75
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uvS3T",
+                      "name": "lv4desc",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        42
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "3ssuA",
+                          "fill": "#565f89",
+                          "content": "the agent can run in parallel sessions",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11.25,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vbPOU",
+              "name": "cats",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": [
+                48,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "nxrwN",
+                  "name": "catsTitle",
+                  "fill": "#565f89",
+                  "content": "WHAT IT CHECKS",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11.25,
+                  "letterSpacing": 0.67
+                },
+                {
+                  "type": "frame",
+                  "id": "6MH6x",
+                  "name": "grpBad",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hscJF",
+                      "fill": "#f7768e",
+                      "content": "Bad",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 10.5,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Nbzpm",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Agent documentation - CLAUDE.md quality, sub-directory docs",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cWb1u",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Repository structure - layout clarity, entry points, boundaries",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "732o4",
+                  "name": "grpOk",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "f04m1",
+                      "fill": "#e0af68",
+                      "content": "Ok",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 10.5,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "UTrke",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Dependency bootstrapping - clone to running in one command",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tUus6",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Self-verification - tests, E2E coverage, seed data",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "pm1cn",
+                  "name": "grpGood",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "1MTgM",
+                      "fill": "#7aa2f7",
+                      "content": "Good",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 10.5,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "4ZkM3",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Permissions - .claude/settings.json, scoped tool access",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pkBlO",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Code quality hooks - pre-commit, lint, format automation",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Qid4P",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Rules & conventions - patterns, naming, architecture decisions",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BGyPB",
+                  "name": "grpGreat",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "u8r34",
+                      "fill": "#9ece6a",
+                      "content": "Great",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 10.5,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "6LlCK",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Worktree readiness - no hardcoded paths, configurable ports",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "b7A9q",
+                      "fill": "#a9b1d6",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Sandbox compatibility - containerized dev, mockable deps",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 12,
+                      "fontWeight": "300"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BynsI",
+              "name": "example",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": [
+                48,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kYoUT",
+                  "fill": "#565f89",
+                  "content": "EXAMPLE OUTPUT",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11.25,
+                  "letterSpacing": 0.67
+                },
+                {
+                  "type": "frame",
+                  "id": "MBlEO",
+                  "name": "outputBox",
+                  "width": "fill_container",
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": {
+                      "top": 1,
+                      "bottom": 1
+                    },
+                    "fill": "#ffffff0a"
+                  },
+                  "layout": "vertical",
+                  "padding": [
+                    20,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "5RErg",
+                      "name": "hdrLine",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "b3AJa",
+                          "fill": "#c0caf5",
+                          "content": "claudeaudit",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.8,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "PmT0Q",
+                          "fill": "#565f89",
+                          "content": "· acme/billing-service · 2026-03-30",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.8,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RyeUj",
+                      "name": "spacer1",
+                      "width": "fill_container",
+                      "height": 20
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZKFgF",
+                      "name": "statusLine",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "btvzK",
+                          "fill": "#c0caf5",
+                          "content": "Ok",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.8,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "fQp3b",
+                          "fill": "#565f89",
+                          "content": "- Runnable",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.8,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "c4o1v",
+                      "name": "spacer2",
+                      "width": "fill_container",
+                      "height": 16
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gfJPX",
+                      "name": "scoresBlock",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "D5Kzl",
+                          "name": "row1",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "7VFlD",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Agent documentation  2/3  Repository structure  3/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "tjHxY",
+                          "name": "row2",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "uETG2",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Dependency bootstrap  3/3  Self-verification    2/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "5h0FD",
+                          "name": "row3",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "HJZtH",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Permissions          0/3  Code quality hooks   2/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "uIvwc",
+                          "name": "row4",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "lrQ3N",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Rules & conventions  1/3  Worktree readiness   1/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gzH9B",
+                          "name": "row5",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "huBBk",
+                              "fill": "#565f89",
+                              "content": "Sandbox compat.      2/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9NZ0X",
+                      "name": "spacer3",
+                      "width": "fill_container",
+                      "height": 12
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qRBGp",
+                      "name": "totalWrap",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a00lE",
+                          "fill": "#7aa2f7",
+                          "content": "16/27",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 10.8,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "mqrR3",
+                      "name": "spacer4",
+                      "width": "fill_container",
+                      "height": 16
+                    },
+                    {
+                      "type": "frame",
+                      "id": "N8tqW",
+                      "name": "det1",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "oR8mW",
+                          "name": "det1hdr",
+                          "width": "fill_container",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LfMv9",
+                              "fill": "#c0caf5",
+                              "content": "Agent documentation",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "rGlDc",
+                              "fill": "#e0af68",
+                              "content": "2/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "v0gvd",
+                          "name": "det1body",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "padding": [
+                            0,
+                            0,
+                            0,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "dfW5t",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "CLAUDE.md exists, covers architecture and test commands.\nMissing sub-directory docs for lib/billing and lib/payments.\n> Add CLAUDE.md to each context boundary with module-specific patterns.",
+                              "lineHeight": 1.65,
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dpcUp",
+                      "name": "spacer5",
+                      "width": "fill_container",
+                      "height": 12
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qRW5u",
+                      "name": "det2",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "UuSK9",
+                          "name": "det2hdr",
+                          "width": "fill_container",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "FShqI",
+                              "fill": "#c0caf5",
+                              "content": "Permissions",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "7EcQ2",
+                              "fill": "#f7768e",
+                              "content": "0/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "6zLTA",
+                          "name": "det2body",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "padding": [
+                            0,
+                            0,
+                            0,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "yWQ96",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "No .claude/settings.json found. Agent will prompt on every bash call.\n> Create .claude/settings.json allowing mix test, mix format, mix credo.",
+                              "lineHeight": 1.65,
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h8GHe",
+                      "name": "spacer6",
+                      "width": "fill_container",
+                      "height": 12
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sWUk0",
+                      "name": "det3",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "FRfID",
+                          "name": "det3hdr",
+                          "width": "fill_container",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "8flAD",
+                              "fill": "#c0caf5",
+                              "content": "Rules & conventions",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "jg6rg",
+                              "fill": "#f7768e",
+                              "content": "1/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cKUAp",
+                          "name": "det3body",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "padding": [
+                            0,
+                            0,
+                            0,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "9YjKT",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "README mentions conventional commits but no other patterns documented.\nEcto schema naming is inconsistent (singular vs plural).\n> Add conventions section to CLAUDE.md covering schema naming,\n  error tuple format, and context module boundaries.",
+                              "lineHeight": 1.65,
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "3c4hM",
+                      "name": "spacer7",
+                      "width": "fill_container",
+                      "height": 12
+                    },
+                    {
+                      "type": "frame",
+                      "id": "i9DNO",
+                      "name": "det4",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "WmL6d",
+                          "name": "det4hdr",
+                          "width": "fill_container",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "qFRH3",
+                              "fill": "#c0caf5",
+                              "content": "Worktree readiness",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "sJZe3",
+                              "fill": "#f7768e",
+                              "content": "1/3",
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "RyfMl",
+                          "name": "det4body",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "padding": [
+                            0,
+                            0,
+                            0,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vvoRz",
+                              "fill": "#565f89",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Port 4000 hardcoded in config/dev.exs. SQLite path is relative but\nnot configurable.\n> Read PORT from env with fallback. Derive DB path from MIX_ENV or\n  worktree name.",
+                              "lineHeight": 1.65,
+                              "fontFamily": "JetBrains Mono",
+                              "fontSize": 10.8,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yh1xv",
+              "name": "footer",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#ffffff0a"
+              },
+              "padding": [
+                32,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "YJJIT",
+                  "fill": "#565f89",
+                  "content": "dmeh.net",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 10.5,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "hDlaZ",
+                  "fill": "#565f89",
+                  "content": "source",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 10.5,
+                  "fontWeight": "300"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "76ly6",
+      "x": 900,
+      "y": 0,
+      "name": "minimum-design",
+      "clip": true,
+      "width": 800,
+      "fill": "#111111",
+      "layout": "vertical",
+      "padding": [
+        48,
+        0,
+        80,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Rj5dN",
+          "name": "content",
+          "width": 580,
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "text",
+              "id": "W6czo",
+              "name": "header",
+              "fill": "#999999",
+              "content": "David Heimann",
+              "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+              "fontSize": 13
+            },
+            {
+              "type": "frame",
+              "id": "uT7Wb",
+              "name": "spacer1",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "text",
+              "id": "744RJ",
+              "name": "title",
+              "fill": "#ffffff",
+              "content": "claudeaudit",
+              "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+              "fontSize": 16,
+              "fontWeight": "600",
+              "letterSpacing": -0.2
+            },
+            {
+              "type": "frame",
+              "id": "3GPFu",
+              "name": "introWrap",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": [
+                20,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vbEl2",
+                  "fill": "#cccccc",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "A skill that audits your repository for AI agent readiness. How well can Claude Code understand, run, verify, and scale across your codebase?",
+                  "lineHeight": 1.7,
+                  "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+                  "fontSize": 15
+                },
+                {
+                  "type": "text",
+                  "id": "kCap8",
+                  "fill": "#cccccc",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nine categories scored 0-3. Four levels. Works as an installable skill or just tell your agent to fetch this page.",
+                  "lineHeight": 1.7,
+                  "fontFamily": "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+                  "fontSize": 15
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lxV84",
+              "name": "installSpacer",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "ytlw6",
+              "name": "installSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mg4c4",
+                  "fill": "#999999",
+                  "content": "Install",
+                  "fontFamily": "Inter",
+                  "fontSize": 13
+                },
+                {
+                  "type": "frame",
+                  "id": "iokqj",
+                  "name": "cmd1",
+                  "width": "fill_container",
+                  "fill": "#1a1a1a",
+                  "cornerRadius": 2,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1,
+                    "fill": "#333333"
+                  },
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#00000014",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 30
+                  },
+                  "gap": 8,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "g7d2e",
+                      "fill": "#666666",
+                      "content": "$",
+                      "fontFamily": "SF Mono, Menlo, Monaco, monospace",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "mWSXu",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "npx claudeaudit",
+                      "fontFamily": "SF Mono, Menlo, Monaco, monospace",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cZGuw",
+                      "fill": "#666666",
+                      "content": "copy",
+                      "fontFamily": "Inter",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5erxr",
+                  "name": "installBlock2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    12,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LCv6v",
+                      "fill": "#999999",
+                      "content": "Or just tell Claude to run it",
+                      "fontFamily": "Inter",
+                      "fontSize": 13
+                    },
+                    {
+                      "type": "frame",
+                      "id": "3iPQ4",
+                      "name": "cmd2",
+                      "width": "fill_container",
+                      "fill": "#1a1a1a",
+                      "cornerRadius": 2,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#333333"
+                      },
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#00000014",
+                        "offset": {
+                          "x": 0,
+                          "y": 8
+                        },
+                        "blur": 30
+                      },
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NRjmB",
+                          "fill": "#cccccc",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "fetch claudeaudit.dev/SKILL.md and run it against this repo",
+                          "fontFamily": "SF Mono, Menlo, Monaco, monospace",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CyUoj",
+                          "fill": "#666666",
+                          "content": "copy",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "ZPR9u",
+                  "fill": "#666666",
+                  "content": "Supports Claude Code, Codex, Cursor, and more.",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontStyle": "italic"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ur2ov",
+              "name": "levelsSpacer",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "RD1lz",
+              "name": "levels",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "R1uWO",
+                  "name": "lv1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "vkOh4",
+                      "name": "lv1line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "w2vIf",
+                          "fill": "#ffffff",
+                          "content": "Readable",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "B4C7x",
+                      "name": "lv1descWrap",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kJxJK",
+                          "fill": "#666666",
+                          "content": "the agent can understand the repo",
+                          "fontFamily": "Inter",
+                          "fontSize": 14
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5pL0d",
+                  "name": "lv2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "1bfyw",
+                      "name": "lv2line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ULQSy",
+                          "fill": "#ffffff",
+                          "content": "Runnable",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sBEJV",
+                      "name": "lv2descWrap",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "X3lKX",
+                          "fill": "#666666",
+                          "content": "the agent can bootstrap and verify the app",
+                          "fontFamily": "Inter",
+                          "fontSize": 14
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xRlG4",
+                  "name": "lv3",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "HFnDC",
+                      "name": "lv3line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kmeUn",
+                          "fill": "#ffffff",
+                          "content": "Safe",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pkunF",
+                      "name": "lv3descWrap",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EmFon",
+                          "fill": "#666666",
+                          "content": "the agent can work confidently without breaking things",
+                          "fontFamily": "Inter",
+                          "fontSize": 14
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "PnXE1",
+                  "name": "lv4",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "4U651",
+                      "name": "lv4line",
+                      "width": "fill_container",
+                      "gap": 10,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "piSdF",
+                          "fill": "#ffffff",
+                          "content": "Scalable",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "aPzQq",
+                      "name": "lv4descWrap",
+                      "width": "fill_container",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "G04ZN",
+                          "fill": "#666666",
+                          "content": "the agent can run in parallel sessions",
+                          "fontFamily": "Inter",
+                          "fontSize": 14
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "YltZu",
+              "name": "catsSpacer",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "rBvhi",
+              "name": "catsHeader",
+              "width": "fill_container",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "eGQOr",
+                  "fill": "#999999",
+                  "content": "What it checks",
+                  "fontFamily": "Inter",
+                  "fontSize": 13
+                },
+                {
+                  "type": "rectangle",
+                  "id": "ZRhEp",
+                  "fill": "#333333",
+                  "width": "fill_container",
+                  "height": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "otvAi",
+              "name": "cats",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "entBh",
+                  "name": "grp1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Ywj4E",
+                      "name": "grp1label",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jERqo",
+                          "fill": "#999999",
+                          "content": "Readable",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "QFhji",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Agent documentation - CLAUDE.md quality, sub-directory docs",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "rX9m0",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Repository structure - layout clarity, entry points, boundaries",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "9WQwl",
+                  "name": "grp2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "FODsG",
+                      "name": "grp2label",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Lhyra",
+                          "fill": "#999999",
+                          "content": "Runnable",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "DIGO7",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Dependency bootstrapping - clone to running in one command",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "YeDFt",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Self-verification - tests, E2E coverage, seed data",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "WJlmK",
+                  "name": "grp3",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "6rFiV",
+                      "name": "grp3label",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jDq6L",
+                          "fill": "#999999",
+                          "content": "Safe",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "A5RIp",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Permissions - .claude/settings.json, scoped tool access",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "l70ha",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Code quality hooks - pre-commit, lint, format automation",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "fddA5",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Rules & conventions - patterns, naming, architecture decisions",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "1I4qH",
+                  "name": "grp4",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "emSVZ",
+                      "name": "grp4label",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PhcAX",
+                          "fill": "#999999",
+                          "content": "Scalable",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "ypmfP",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Worktree readiness - no hardcoded paths, configurable ports",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "wexI2",
+                      "fill": "#cccccc",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Sandbox compatibility - containerized dev, mockable deps",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "E4PRb",
+              "name": "exSpacer",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "zgce6",
+              "name": "exHeader",
+              "width": "fill_container",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "f8arW",
+                  "fill": "#999999",
+                  "content": "Example output",
+                  "fontFamily": "Inter",
+                  "fontSize": 13
+                },
+                {
+                  "type": "rectangle",
+                  "id": "NWimA",
+                  "fill": "#333333",
+                  "width": "fill_container",
+                  "height": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "9HEG6",
+              "name": "outBox",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                24,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Um0Rh",
+                  "name": "outHdr",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LrXTg",
+                      "fill": "#ffffff",
+                      "content": "claudeaudit",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "0yR1c",
+                      "fill": "#666666",
+                      "content": "· acme/billing-service · 2026-03-30",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "9xP7i",
+                  "name": "outSp1",
+                  "width": "fill_container",
+                  "height": 20
+                },
+                {
+                  "type": "frame",
+                  "id": "0AB0P",
+                  "name": "outStatus",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "L7QI9",
+                      "fill": "#cccccc",
+                      "content": "Ok - Runnable",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dU24B",
+                  "name": "outSp2",
+                  "width": "fill_container",
+                  "height": 16
+                },
+                {
+                  "type": "frame",
+                  "id": "jFSsx",
+                  "name": "scores",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sKzIK",
+                      "fill": "#999999",
+                      "content": "Agent documentation  2/3  Repository structure  3/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ALu10",
+                      "fill": "#999999",
+                      "content": "Dependency bootstrap  3/3  Self-verification    2/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "eBbip",
+                      "fill": "#999999",
+                      "content": "Permissions          0/3  Code quality hooks   2/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "T9a0b",
+                      "fill": "#999999",
+                      "content": "Rules & conventions  1/3  Worktree readiness   1/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pN4Wa",
+                      "fill": "#999999",
+                      "content": "Sandbox compat.      2/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Tf1xq",
+                  "name": "outSp3",
+                  "width": "fill_container",
+                  "height": 12
+                },
+                {
+                  "type": "frame",
+                  "id": "imwnO",
+                  "name": "totalWrap",
+                  "width": "fill_container",
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "eAtsA",
+                      "fill": "#ffffff",
+                      "content": "16/27",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SPB0f",
+                  "name": "detSp1",
+                  "width": "fill_container",
+                  "height": 20
+                },
+                {
+                  "type": "frame",
+                  "id": "SpP5s",
+                  "name": "det1",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "JGMfd",
+                      "name": "det1hdr",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jX3iT",
+                          "fill": "#ffffff",
+                          "content": "Agent documentation  2/3",
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "laiqu",
+                      "name": "det1body",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Pdube",
+                          "fill": "#666666",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "CLAUDE.md exists, covers architecture and test commands.\nMissing sub-directory docs for lib/billing and lib/payments.\n> Add CLAUDE.md to each context boundary with module-specific patterns.",
+                          "lineHeight": 1.65,
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6h0zh",
+                  "name": "detSp2",
+                  "width": "fill_container",
+                  "height": 16
+                },
+                {
+                  "type": "frame",
+                  "id": "Ywnqx",
+                  "name": "det2",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Fv8Kc",
+                      "name": "det2hdr",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ewaY0",
+                          "fill": "#ffffff",
+                          "content": "Permissions  0/3",
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PffaF",
+                      "name": "det2body",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "fXK8M",
+                          "fill": "#666666",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "No .claude/settings.json found. Agent will prompt on every bash call.\n> Create .claude/settings.json allowing mix test, mix format, mix credo.",
+                          "lineHeight": 1.65,
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "EYxmZ",
+                  "name": "detSp3",
+                  "width": "fill_container",
+                  "height": 16
+                },
+                {
+                  "type": "frame",
+                  "id": "LM19n",
+                  "name": "det3",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "9hMLL",
+                      "name": "det3hdr",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GOX7y",
+                          "fill": "#ffffff",
+                          "content": "Rules & conventions  1/3",
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SFMsl",
+                      "name": "det3body",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "omCBl",
+                          "fill": "#666666",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "README mentions conventional commits but no other patterns documented.\nEcto schema naming is inconsistent (singular vs plural).\n> Add conventions section to CLAUDE.md covering schema naming,\n  error tuple format, and context module boundaries.",
+                          "lineHeight": 1.65,
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CpEso",
+                  "name": "detSp4",
+                  "width": "fill_container",
+                  "height": 16
+                },
+                {
+                  "type": "frame",
+                  "id": "4TxlM",
+                  "name": "det4",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "helzH",
+                      "name": "det4hdr",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "laEpr",
+                          "fill": "#ffffff",
+                          "content": "Worktree readiness  1/3",
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dmppb",
+                      "name": "det4body",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "pFNaa",
+                          "fill": "#666666",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Port 4000 hardcoded in config/dev.exs. SQLite path is relative but\nnot configurable.\n> Read PORT from env with fallback. Derive DB path from MIX_ENV or\n  worktree name.",
+                          "lineHeight": 1.65,
+                          "fontFamily": "Menlo",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hUwFS",
+              "name": "footerSpacer",
+              "width": "fill_container",
+              "height": 80
+            },
+            {
+              "type": "frame",
+              "id": "5ZHIk",
+              "name": "footer",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#333333"
+              },
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "VmVyp",
+                  "fill": "#666666",
+                  "content": "dmeh.net",
+                  "fontFamily": "Inter",
+                  "fontSize": 13
+                },
+                {
+                  "type": "text",
+                  "id": "BNZ97",
+                  "fill": "#666666",
+                  "content": "source",
+                  "fontFamily": "Inter",
+                  "fontSize": 13
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "MO9wY",
+      "x": 1800,
+      "y": 0,
+      "name": "Status Variations",
+      "clip": true,
+      "width": 520,
+      "fill": "#111111",
+      "layout": "vertical",
+      "padding": [
+        40,
+        40,
+        48,
+        40
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "GQgb3",
+          "name": "compTitle",
+          "fill": "#ffffff",
+          "content": "Status indicator variations",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "Dj24r",
+          "name": "compSub",
+          "fill": "#666666",
+          "content": "Same four levels, five treatments",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "IqIsH",
+          "name": "v1spacer",
+          "width": "fill_container",
+          "height": 48
+        },
+        {
+          "type": "frame",
+          "id": "Pnx3u",
+          "name": "v1header",
+          "width": "fill_container",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "ZeM5y",
+              "fill": "#999999",
+              "content": "1. Left borders",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "rectangle",
+              "id": "gbwwI",
+              "fill": "#333333",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "sZr6j",
+          "name": "v1",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "uZFCP",
+              "name": "v1a",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "left": 2
+                },
+                "fill": "#dc2626"
+              },
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                0,
+                0,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "AEHlY",
+                  "fill": "#ffffff",
+                  "content": "Readable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "Pe9RT",
+                  "fill": "#666666",
+                  "content": "the agent can understand the repo",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gyQYE",
+              "name": "v1b",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "left": 2
+                },
+                "fill": "#b08800"
+              },
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                0,
+                0,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rqbKi",
+                  "fill": "#ffffff",
+                  "content": "Runnable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "epwnj",
+                  "fill": "#666666",
+                  "content": "the agent can bootstrap and verify the app",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wD0NY",
+              "name": "v1c",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "left": 2
+                },
+                "fill": "#3b82f6"
+              },
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                0,
+                0,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ktEiJ",
+                  "fill": "#ffffff",
+                  "content": "Safe",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "bzcrR",
+                  "fill": "#666666",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "the agent can work confidently without breaking things",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mqJ7y",
+              "name": "v1d",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "left": 2
+                },
+                "fill": "#22863a"
+              },
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                0,
+                0,
+                12
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "akh6W",
+                  "fill": "#ffffff",
+                  "content": "Scalable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "YU8xj",
+                  "fill": "#666666",
+                  "content": "the agent can run in parallel sessions",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "8bwV5",
+          "name": "v2spacer",
+          "width": "fill_container",
+          "height": 48
+        },
+        {
+          "type": "frame",
+          "id": "uXtiH",
+          "name": "v2header",
+          "width": "fill_container",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "LZ7Ks",
+              "fill": "#999999",
+              "content": "2. No color",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "rectangle",
+              "id": "ySHvW",
+              "fill": "#333333",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "WciWq",
+          "name": "v2",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "pXFiQ",
+              "name": "v2a",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "BLViv",
+                  "fill": "#ffffff",
+                  "content": "Readable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "0AXHQ",
+                  "fill": "#666666",
+                  "content": "the agent can understand the repo",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "HjsM4",
+              "name": "v2b",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "470Du",
+                  "fill": "#cccccc",
+                  "content": "Runnable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "unkQj",
+                  "fill": "#666666",
+                  "content": "the agent can bootstrap and verify the app",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Wbu2t",
+              "name": "v2c",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PWgK0",
+                  "fill": "#999999",
+                  "content": "Safe",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "jZyqJ",
+                  "fill": "#555555",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "the agent can work confidently without breaking things",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kNRAz",
+              "name": "v2d",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "5IwOz",
+                  "fill": "#666666",
+                  "content": "Scalable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15
+                },
+                {
+                  "type": "text",
+                  "id": "2vOiG",
+                  "fill": "#444444",
+                  "content": "the agent can run in parallel sessions",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DW1N9",
+          "name": "v3spacer",
+          "width": "fill_container",
+          "height": 48
+        },
+        {
+          "type": "frame",
+          "id": "TEeLn",
+          "name": "v3header",
+          "width": "fill_container",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "HJ0M9",
+              "fill": "#999999",
+              "content": "3. Dashes",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "rectangle",
+              "id": "nij2e",
+              "fill": "#333333",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "AhdqT",
+          "name": "v3",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "mo9lM",
+              "name": "v3a",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HwPL3",
+                  "name": "v3aline",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 1,
+                      "id": "h8dQP",
+                      "fill": "#dc2626",
+                      "width": 14,
+                      "height": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "D08vv",
+                      "fill": "#ffffff",
+                      "content": "Readable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "5qmid",
+                  "fill": "#666666",
+                  "content": "the agent can understand the repo",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "3G9ds",
+              "name": "v3b",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "GYd2k",
+                  "name": "v3bline",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 1,
+                      "id": "K2tRI",
+                      "fill": "#b08800",
+                      "width": 14,
+                      "height": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "GDiua",
+                      "fill": "#ffffff",
+                      "content": "Runnable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "a3lZI",
+                  "fill": "#666666",
+                  "content": "the agent can bootstrap and verify the app",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IJiuF",
+              "name": "v3c",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "etXMG",
+                  "name": "v3cline",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 1,
+                      "id": "JqrtA",
+                      "fill": "#3b82f6",
+                      "width": 14,
+                      "height": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "ewDXa",
+                      "fill": "#ffffff",
+                      "content": "Safe",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "icvsE",
+                  "fill": "#666666",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "the agent can work confidently without breaking things",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BXhCO",
+              "name": "v3d",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fmArr",
+                  "name": "v3dline",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 1,
+                      "id": "dQjyx",
+                      "fill": "#22863a",
+                      "width": 14,
+                      "height": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "79Jio",
+                      "fill": "#ffffff",
+                      "content": "Scalable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "k5p09",
+                  "fill": "#666666",
+                  "content": "the agent can run in parallel sessions",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZvPAQ",
+          "name": "v4spacer",
+          "width": "fill_container",
+          "height": 48
+        },
+        {
+          "type": "frame",
+          "id": "tdgEa",
+          "name": "v4header",
+          "width": "fill_container",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "NOvVl",
+              "fill": "#999999",
+              "content": "4. Top rules",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "rectangle",
+              "id": "djnBs",
+              "fill": "#333333",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Hz9pN",
+          "name": "v4",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "f4G9Y",
+              "name": "v4a",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#dc2626"
+              },
+              "layout": "vertical",
+              "gap": 4,
+              "padding": [
+                8,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Kk2Bp",
+                  "fill": "#ffffff",
+                  "content": "Readable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "9iKKz",
+                  "fill": "#666666",
+                  "content": "the agent can understand the repo",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "evqFF",
+              "name": "v4b",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#b08800"
+              },
+              "layout": "vertical",
+              "gap": 4,
+              "padding": [
+                8,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "V1JYL",
+                  "fill": "#ffffff",
+                  "content": "Runnable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "I3qsu",
+                  "fill": "#666666",
+                  "content": "the agent can bootstrap and verify the app",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "B5VWI",
+              "name": "v4c",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#3b82f6"
+              },
+              "layout": "vertical",
+              "gap": 4,
+              "padding": [
+                8,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JaeYj",
+                  "fill": "#ffffff",
+                  "content": "Safe",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "KvycY",
+                  "fill": "#666666",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "the agent can work confidently without breaking things",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "64pN8",
+              "name": "v4d",
+              "width": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#22863a"
+              },
+              "layout": "vertical",
+              "gap": 4,
+              "padding": [
+                8,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mlGlu",
+                  "fill": "#ffffff",
+                  "content": "Scalable",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "yBkcv",
+                  "fill": "#666666",
+                  "content": "the agent can run in parallel sessions",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "uWNaB",
+          "name": "v5spacer",
+          "width": "fill_container",
+          "height": 48
+        },
+        {
+          "type": "frame",
+          "id": "puZyg",
+          "name": "v5header",
+          "width": "fill_container",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "7IeEw",
+              "fill": "#999999",
+              "content": "5. Colored score only",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "rectangle",
+              "id": "ubyrx",
+              "fill": "#333333",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Gosml",
+          "name": "v5",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            20,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "B0Sov",
+              "name": "v5a",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G77G2",
+                  "name": "v5aline",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "3E1Ve",
+                      "fill": "#ffffff",
+                      "content": "Readable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uSnic",
+                      "fill": "#dc2626",
+                      "content": "0/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "fbu2X",
+                  "fill": "#666666",
+                  "content": "the agent can understand the repo",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "LQd24",
+              "name": "v5b",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dbTml",
+                  "name": "v5bline",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "dUUd7",
+                      "fill": "#ffffff",
+                      "content": "Runnable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CD12L",
+                      "fill": "#b08800",
+                      "content": "1/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "KSGMc",
+                  "fill": "#666666",
+                  "content": "the agent can bootstrap and verify the app",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "RjpDR",
+              "name": "v5c",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "P6Nli",
+                  "name": "v5cline",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GZDSw",
+                      "fill": "#ffffff",
+                      "content": "Safe",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "j43Hd",
+                      "fill": "#3b82f6",
+                      "content": "2/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "6kUvb",
+                  "fill": "#666666",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "the agent can work confidently without breaking things",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wp6KA",
+              "name": "v5d",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 2,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "N7fvQ",
+                  "name": "v5dline",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Recby",
+                      "fill": "#ffffff",
+                      "content": "Scalable",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VQMgZ",
+                      "fill": "#22863a",
+                      "content": "3/3",
+                      "fontFamily": "Menlo",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "aQ2p2",
+                  "fill": "#666666",
+                  "content": "the agent can run in parallel sessions",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
