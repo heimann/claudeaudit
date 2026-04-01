@@ -301,7 +301,7 @@
 
   <div class="intro">
     <p>A skill that audits your repository for AI agent readiness. How well can Claude Code understand, run, verify, and scale across your codebase?</p>
-    <p>Nine categories scored 0-3. Four levels. Works as an installable skill or just tell your agent to fetch this page.</p>
+    <p>Fourteen categories across two dimensions: config readiness (scored with a maturity level) and ergonomics (how productive agents are in the codebase). Works as an installable skill or just tell your agent to fetch this page.</p>
   </div>
 
   <div class="install-section">
@@ -369,42 +369,52 @@
       <div class="cat">Worktree readiness <span>- no hardcoded paths, configurable ports</span></div>
       <div class="cat">Sandbox compatibility <span>- containerized dev, mockable deps</span></div>
     </div>
+
+    <div class="cat-group">
+      <div class="cat-group-label">Ergonomics</div>
+      <div class="cat">Feedback loop <span>- scoped tests, watch mode, fast verification</span></div>
+      <div class="cat">Error signal quality <span>- concise errors, not noisy stack traces</span></div>
+      <div class="cat">Type system <span>- static analysis catches mistakes before runtime</span></div>
+      <div class="cat">Determinism <span>- same command, same result, no flaky tests</span></div>
+      <div class="cat">Change locality <span>- change one thing without reading everything</span></div>
+    </div>
   </div>
 
   <div class="example">
     <div class="section-header"><span>Example output</span></div>
-    <div class="output"><span class="v">claudeaudit</span> · acme/billing-service · 2026-03-30
+    <div class="output"><span class="v">claudeaudit</span> · acme/billing-service · 2026-04-01
 
-<span class="v">Ok</span> - Runnable
+<span class="v">Good</span> - Safe
 
-  Agent documentation  <span class="s">2</span>/3  Repository structure  <span class="s">3</span>/3
-  Dependency bootstrap <span class="s">3</span>/3  Self-verification     <span class="s">2</span>/3
-  Permissions          <span class="s">0</span>/3  Code quality hooks    <span class="s">2</span>/3
-  Rules & conventions  <span class="s">1</span>/3  Worktree readiness    <span class="s">1</span>/3
-  Sandbox compat.      <span class="s">2</span>/3
+Readable
+  Agent documentation  <span class="s">2</span>/3    Repository structure  <span class="s">3</span>/3
 
-  <span class="v">16</span>/27
+Runnable
+  Dependency bootstrap <span class="s">3</span>/3    Self-verification     <span class="s">2</span>/3
 
-<span class="v">Agent documentation</span>  <span class="s">2/3</span>
-  CLAUDE.md exists, covers architecture and test commands.
-  Missing sub-directory docs for lib/billing and lib/payments.
-  > Add CLAUDE.md to each context boundary with module-specific patterns.
+Safe
+  Permissions          <span class="s">2</span>/3    Code quality hooks    <span class="s">3</span>/3
+  Rules & conventions  <span class="s">2</span>/3
 
-<span class="v">Permissions</span>  <span class="s">0/3</span>
-  No .claude/settings.json found. Agent will prompt on every bash call.
-  > Create .claude/settings.json allowing mix test, mix format, mix credo.
+Scalable
+  Worktree readiness   <span class="s">1</span>/3    Sandbox compat.       <span class="s">2</span>/3
 
-<span class="v">Rules & conventions</span>  <span class="s">1/3</span>
-  README mentions conventional commits but no other patterns documented.
-  Ecto schema naming is inconsistent (singular vs plural).
-  > Add conventions section to CLAUDE.md covering schema naming,
-    error tuple format, and context module boundaries.
+Ergonomics
+  Feedback loop        <span class="s">2</span>/3    Error signal quality  <span class="s">1</span>/3
+  Type system          <span class="s">2</span>/3    Determinism           <span class="s">2</span>/3
+  Change locality      <span class="s">2</span>/3
 
 <span class="v">Worktree readiness</span>  <span class="s">1/3</span>
-  Port 4000 hardcoded in config/dev.exs. SQLite path is relative but
-  not configurable.
-  > Read PORT from env with fallback. Derive DB path from MIX_ENV or
-    worktree name.</div>
+  Port 4000 hardcoded in config/dev.exs with no env var override.
+  > Read PORT from System.get_env("PORT", "4000") in config/runtime.exs.
+
+<span class="v">Self-verification</span>  <span class="s">2/3</span>
+  Tests exist and pass, CI runs them. No scoped test command documented.
+  > Add to CLAUDE.md: "mix test test/myapp/billing_test.exs:42"
+
+<span class="v">Error signal quality</span>  <span class="s">1/3</span>
+  Default Phoenix error output. No custom error formatters.
+  > Configure --formatter Elixir.CLI.Formatter for concise test output.</div>
   </div>
 
   <footer class="footer">
