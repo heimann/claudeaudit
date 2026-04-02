@@ -368,21 +368,53 @@ After presenting the report, offer to fix the gaps step by step. Start with the 
 
 Use a two-phase approach: fast exploration first, then judgment-based scoring.
 
-### Phase 1: Gather signals (deterministic script)
+### Phase 1: Gather signals
 
-Run the signal-gathering script bundled with this skill:
+Execute these steps IN THIS EXACT ORDER. For each step, report what you find or "DOES NOT EXIST". Do not skip steps.
 
-```
-bash skill/scripts/gather-signals.sh .
-```
+**Step 1 - Agent docs** (most important, do this first):
+- Glob `**/CLAUDE.md` - Read every file found, report line count and what it covers
+- Glob `**/AGENTS.md` - Read every file found, report line count
+- Glob `**/.claude/**` - Read every file found (paste .claude/settings.json in FULL if it exists)
+- Glob `**/.agents/**` - List all files found, read any SKILL.md files
+- Read `.cursorrules` (or DOES NOT EXIST)
+- Read `.github/copilot-instructions.md` (or DOES NOT EXIST)
 
-The script path is relative to the skill's installation directory (typically `.claude/skills/claudeaudit/` or `.agents/skills/claudeaudit/`). Find the script first, then run it with the repo root as the argument.
+**Step 2 - Repository structure:**
+- List top-level directory contents
+- Read README.md (or README.rst) first 20 lines
+- Read the main package manifest (package.json, pyproject.toml, go.mod, Cargo.toml, mix.exs - whichever exists, first 30 lines)
+- Check for monorepo config: pnpm-workspace.yaml, package.json "workspaces", Cargo.toml [workspace]
 
-This script deterministically reads all files relevant to agent readiness (CLAUDE.md, .claude/, .agents/, configs, test counts, largest files, etc.) and outputs a structured report. The output is identical every run for the same repo state.
+**Step 3 - Dependencies:**
+- Report which lock files exist: package-lock.json, pnpm-lock.yaml, yarn.lock, go.sum, Cargo.lock, uv.lock, mix.lock
+- Check for setup scripts: Read Makefile first 30 lines, or check for bin/setup
+- Check if .devcontainer/devcontainer.json exists
+- Check if Dockerfile exists
 
-If the script is not available (e.g., when running from a URL fetch), use the Glob and Read tools to manually check the same files. The script source shows exactly which files to check.
+**Step 4 - Tests:**
+- Glob `**/*.test.*` `**/*_test.*` `**/test_*.*` `**/*.spec.*` - report COUNT only (exclude node_modules, vendor)
+- List .github/workflows/ contents (count how many workflow files)
 
-For large files (>1000 lines), the script reports them but cannot judge whether they are god files. After reviewing the script output, use the Read tool to check the first and last 50 lines of any file over 1000 lines to determine if it mixes multiple concerns (god file) or is single-purpose (data, generated, types).
+**Step 5 - Code quality:**
+- Read .pre-commit-config.yaml (or DOES NOT EXIST)
+- Read .husky/pre-commit (or DOES NOT EXIST)
+- Read .lefthook.yml (or DOES NOT EXIST)
+- List which of these exist: .eslintrc.json, eslint.config.js, eslint.config.mjs, .prettierrc, biome.json, ruff.toml, .golangci.yaml, rustfmt.toml, .editorconfig
+
+**Step 6 - Conventions:**
+- Read CONTRIBUTING.md first 20 lines and report total line count (or DOES NOT EXIST)
+
+**Step 7 - Scalability:**
+- Grep for "PORT" or "port" in config files to check if ports are env-configurable
+- Report app type: CLI tool, library, framework, server, or desktop app
+
+**Step 8 - Ergonomics:**
+- If package.json exists, report if "watch" or "dev" scripts are defined
+- If tsconfig.json exists, Read it and report the "strict" field value
+- If pyproject.toml exists, Grep for "[tool.mypy]" and report if strict = true
+- Grep test files for "sleep" or "setTimeout" - report match count
+- Find the 10 largest source files (exclude node_modules, vendor, dist, .git, lock files). For each file over 1000 lines, Read the first 50 and last 50 lines to judge if it mixes multiple concerns (god file) or is single-purpose (data, generated, types).
 
 ### Phase 2: Score (judgment)
 
