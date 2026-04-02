@@ -1,141 +1,48 @@
 # claudeaudit
 
-Audit your repository for AI agent readiness. How well can Claude Code (or any coding agent) understand, run, verify, and scale across your codebase?
+Audit your repository for AI agent readiness.
 
-14 categories across two dimensions. Concrete scores, actionable recommendations.
+14 categories, two dimensions (config readiness + ergonomics), concrete fixes.
 
 ## Install
 
 ```
-npx claudeaudit
+npx skills add heimann/claudeaudit
 ```
 
-This copies the audit skill into `.claude/skills/claudeaudit/` in your project. Next time you ask Claude Code to audit the repo, it will use the skill automatically.
+Or tell any agent: `fetch claudeaudit.dev/SKILL.md and run it against this repo`
 
-## Or just tell your agent
+## What it produces
 
-No install needed. Paste this into any AI coding agent:
-
-```
-fetch https://claudeaudit.dev/SKILL.md and run it against this repo
-```
-
-Works with Claude Code, Codex, Cursor, and anything that can fetch a URL and follow instructions.
-
-## What it checks
-
-Two independent dimensions:
-
-### Config readiness (maturity level: Bad / Ok / Good / Great)
-
-How well the repo is *set up* for agents. You configure this once.
-
-| Level | Tier | Categories |
-|-------|------|------------|
-| Bad | Readable | Agent documentation, Repository structure |
-| Ok | Runnable | Dependency bootstrapping, Self-verification |
-| Good | Safe | Permissions, Code quality hooks, Rules & conventions |
-| Great | Scalable | Worktree readiness, Sandbox compatibility |
-
-Maturity level = highest level where all categories (cumulative) score >= 2.
-
-### Ergonomics (flat scores, no level)
-
-How *pleasant and productive* the repo is for agents to work in. This improves continuously.
-
-| Category | What it measures |
-|----------|-----------------|
-| Feedback loop | Can the agent verify a change fast? Scoped tests, watch mode |
-| Error signal quality | Are errors concise and actionable, or noisy stack traces? |
-| Type system | Does static analysis catch mistakes before runtime? |
-| Determinism | Same command, same result? No flaky tests, no network in tests |
-| Change locality | Can the agent change one thing without reading everything? |
-
-## Example output
+A compact scorecard with your top fixes ordered by impact:
 
 ```
-claudeaudit - myapp - 2026-04-01
+claudeaudit - myapp
 
-Good - Safe
+Good (worktree blocks Great)
 
-Readable
-  Agent documentation  2/3    Repository structure  3/3
+  docs 2  structure 3  bootstrap 3  tests 2  perms 2  hooks 3  rules 2  worktree 1  sandbox 2
+  feedback 2  errors 1  types 2  determinism 2  locality 2
 
-Runnable
-  Dependency bootstrap 3/3    Self-verification     2/3
-
-Safe
-  Permissions          2/3    Code quality hooks    3/3
-  Rules & conventions  2/3
-
-Scalable
-  Worktree readiness   1/3    Sandbox compat.       2/3
-
-Ergonomics
-  Feedback loop        2/3    Error signal quality  1/3
-  Type system          2/3    Determinism           2/3
-  Change locality      2/3
-
-Worktree readiness 1/3
-  Port 4000 hardcoded in config/dev.exs with no env var override.
-  -> Read PORT from System.get_env("PORT", "4000") in config/runtime.exs.
-
-Self-verification 2/3
-  Tests exist and pass, CI runs them. No scoped test command documented.
-  -> Add to CLAUDE.md: "mix test test/myapp/billing_test.exs:42"
-
-Error signal quality 1/3
-  Default Phoenix error output. No custom error formatters.
-  -> Add --formatter Elixir.CLI.Formatter to .formatter.exs for concise test output.
+Top fixes:
+1. Make PORT configurable via env var in config/dev.exs -> worktree 1->2, unlocks Great
+2. Add --formatter for concise test output -> errors 1->2
+3. Add sub-module CLAUDE.md for lib/billing -> docs 2->3
 ```
 
-Each category below 3 gets a finding and a concrete next step.
+After the report, it offers to fix the gaps step by step.
 
-## How it works
+## Deterministic signal gathering
 
-The skill uses a two-phase hybrid approach:
+The skill includes a bash script (`skill/scripts/gather-signals.sh`) that reads all agent-readiness files deterministically - same output every run for the same repo state. This is used for the [Agent Readiness Index](https://github.com/heimann/claudeaudit-site) where we need reproducible scores across 100+ repos.
 
-1. **Explore** - 5 parallel agents (haiku) scan the repo for signals: files, configs, git metadata, test patterns, file sizes
-2. **Score** - One agent (opus) reads the signal data and scores against the rubric
-
-This produces stable, accurate results. In stability testing (5 runs per repo, 4 fixture repos), config readiness scores are 97% stable and ergonomics scores are 100% stable across runs.
-
-Falls back to single-agent mode if subagents are unavailable.
-
-## Scoring philosophy
-
-- Be honest, not generous. A 2 is good. A 3 is exceptional.
-- Score based on what exists, not what could exist.
-- Recommendations must be concrete and copy-pasteable into a task list.
-- "Add a CLAUDE.md section covering your Ecto schema naming convention" not "improve documentation."
-
-## Development
-
-```
-git clone https://github.com/heimann/claudeaudit
-cd claudeaudit
-```
-
-Zero dependencies. The CLI uses only Node.js built-ins.
-
-### Structure
-
-```
-bin/cli.mjs          CLI entry point (copies skill into target repo)
-skill/SKILL.md       Main audit skill (source of truth)
-skill/explore-*.md   Haiku exploration prompts (5 files)
-SKILL.md             Root copy (kept in sync with skill/SKILL.md)
-site/index.html      claudeaudit.dev static site
-evals/               Stability test fixtures and results
-```
-
-### Running evals
+To run it manually:
 
 ```bash
-./evals/setup_fixtures.sh    # clone fixture repos at pinned SHAs
+bash skill/scripts/gather-signals.sh /path/to/repo
 ```
 
-Then dispatch haiku exploration agents + opus scoring agents per the eval methodology in `evals/*.md`.
+The output is a structured text report of every file that matters for scoring. You can pipe this to an LLM for scoring, or use the index runner in [claudeaudit-site](https://github.com/heimann/claudeaudit-site).
 
 ## License
 
