@@ -368,101 +368,23 @@ After presenting the report, offer to fix the gaps step by step. Start with the 
 
 Use a two-phase approach: fast exploration first, then judgment-based scoring.
 
-### Phase 1: Explore (parallel, use fast model)
+### Phase 1: Gather signals (deterministic script)
 
-Spawn 5 exploration agents in parallel using the Agent tool with `model: "haiku"`. Each agent explores one signal group and returns a structured facts-only report. Point each agent at the repo root directory.
+Run the signal-gathering script bundled with this skill:
 
-Each agent's prompt should begin with "Explore the repository at {repo_root} and report FACTS ONLY. Use the Glob tool to find files, the Read tool to read them, and the Grep tool to search contents. Avoid using the Bash tool unless you really need it - it triggers permission prompts that interrupt the user." followed by one of these signal checklists:
+```
+bash scripts/gather-signals.sh .
+```
 
-**Agent 1: Documentation and Structure**
-- Does CLAUDE.md exist at root? If yes, how many lines? What does it cover?
-- Does .claude/ directory exist? What's in it? (settings.json, skills/, commands/)
-- Are there subdirectory CLAUDE.md files? (check src/, lib/, test/, app/, etc.)
-- Does .cursorrules or .github/copilot-instructions.md exist?
-- Are there @import directives in any CLAUDE.md files?
-- What topics do the agent docs cover? (architecture, conventions, testing, pitfalls, anti-patterns)
-- What's the top-level directory layout? List all directories and key root files.
-- Does README.md (or README.rst) exist? Summarize the first 30 lines.
-- Are there clear entry points? (main files, index files, __main__.py, etc.)
-- Is it a monorepo? If so, workspace config? (package.json workspaces, go.work, etc.)
-- Are module boundaries enforced? (import restrictions, tsconfig paths, workspace configs, linter rules)
+This script deterministically reads all files relevant to agent readiness (CLAUDE.md, .claude/, .agents/, configs, test counts, largest files, etc.) and outputs a structured report. The output is identical every run for the same repo state.
 
-**Agent 2: Dependencies and Testing**
-- What package manager is used? (npm, pip, cargo, mix, go mod, uv, etc.)
-- Does a lock file exist? (package-lock.json, Cargo.lock, mix.lock, go.sum, uv.lock, etc.)
-- Is there a single setup command? (Makefile target, bin/setup, docker compose, etc.) Or multiple steps?
-- Does .env.example or .env.template exist?
-- Does Dockerfile or .devcontainer/ exist? Is it for dev or just deployment?
-- What system dependencies are needed beyond the language runtime? (databases, native libs, etc.)
-- Is there a .tool-versions, .nvmrc, .python-version, or similar runtime version file?
-- Do test files exist? What framework? How many test files?
-- What's the test command? Is it documented? Where?
-- Does CI config exist? (.github/workflows/, .gitlab-ci.yml) What does it run?
-- Can tests be scoped to a single file or test? Is this documented?
-- Is there a quiet/summary mode for test output? (e.g., pytest -q, mocha --reporter min)
-- Do E2E/integration tests exist? (Playwright, Cypress, Selenium, Wallaby, etc.)
-- Are there seed files or test fixtures?
+If the script is not available (e.g., when running from a URL fetch), use the Glob and Read tools to manually check the same files. The script source shows exactly which files to check.
 
-**Agent 3: Permissions, Quality, and Conventions**
-- Does .claude/settings.json exist? If yes, paste the full contents.
-- Are there allowedTools? blockedTools? List them.
-- Are there custom skills in .claude/skills/ or .claude/commands/? List them with descriptions.
-- Are there hooks? (PreToolUse, PostToolUse) What do they do?
-- Does .claude/mcp.json exist?
-- Pre-commit hooks? (.pre-commit-config.yaml, .husky/, .lefthook.yml) What do they run?
-- Linter configs? (.eslintrc*, .credo.exs, ruff.toml, rustfmt.toml, .rubocop.yml, biome.json)
-- Formatter configs? (.prettierrc*, .formatter.exs, .editorconfig)
-- Does CI run lint/format checks? Which ones?
-- Do local hooks match what CI checks?
-- Does CONTRIBUTING.md exist? What does it cover?
-- Are conventions documented in CLAUDE.md or agent docs? What specifically?
-- Are there ADRs in docs/?
-- What naming patterns are documented or inferable from config?
-- Are commit message conventions documented?
-- Are there machine-enforceable convention rules? (linter rules that encode project patterns, not just style)
+For large files (>1000 lines), the script reports them but cannot judge whether they are god files. After reviewing the script output, use the Read tool to check the first and last 50 lines of any file over 1000 lines to determine if it mixes multiple concerns (god file) or is single-purpose (data, generated, types).
 
-**Agent 4: Scalability**
-- Are there hardcoded ports in config files? Search for port numbers in config/source.
-- Are there hardcoded absolute paths? (/home/, /Users/, /tmp/specific-name)
-- Does the app bind network ports? If so, configurable via env var or only CLI flag?
-- Does the app use SQLite or local databases? Hardcoded or configurable path?
-- Are there PID files, lock files, or Unix sockets with fixed paths?
-- Is there shared state outside the repo directory? (cache dirs, appdirs, XDG dirs)
-- Is this a CLI tool, library, or server? What kind of app is it?
-- What system dependencies does the app need beyond the language runtime? List all.
-- Does Dockerfile exist? Does it work for dev or just deployment?
-- Does docker-compose exist? Does it use host networking, host PID, or privileged mode?
-- Does .devcontainer/ exist?
-- Are there external API dependencies? Do they have mock/dev modes?
-- Does the app need network egress for development or testing?
-- Are there native extensions or OS-specific packages needed?
+### Phase 2: Score (judgment)
 
-**Agent 5: Ergonomics**
-- How many test files exist? Roughly how large is the test suite?
-- Is there a scoped test command documented? (e.g., `pytest path::test_name`, `mix test file:line`, `go test -run Name`, `mocha --grep`)
-- Is there a watch mode or file watcher configured? (e.g., jest --watch, mix test --watch, nodemon, tsc --watch)
-- Is there an incremental build or typecheck that runs faster than the full suite?
-- Does the test runner support parallel execution? Is it configured?
-- Is there a custom test reporter configured? (e.g., pytest conftest customization, mocha reporter setting, jest config)
-- Are there custom exception/error classes in the codebase? Do they include context fields?
-- Is stack trace filtering configured? (e.g., pytest --tb=short as default, jest --no-stack-trace)
-- What test framework is used? (Note: Rust, Elm, Go have naturally concise error output)
-- Is there a type system? What kind? (TypeScript, mypy, Rust, Go, Flow, etc.)
-- For TypeScript: is strict mode enabled in tsconfig.json? Check the `strict` field.
-- For Python: does mypy.ini, pyproject.toml [tool.mypy], or setup.cfg [mypy] exist? Is strict mode on?
-- Search for `any` type usage: how prevalent is it? (grep for `: any` in TypeScript, `Any` in Python)
-- Does CI run a typecheck step? (tsc --noEmit, mypy, pyright, etc.)
-- Search test files for patterns suggesting non-determinism: `sleep`, `time.sleep`, `setTimeout`, `retry`, `retries`, `flaky`, network calls (`fetch`, `http`, `requests.get`, `axios`), `random`/`Math.random` without seeding
-- Are there known-flaky test annotations? Do test configs set timeouts or retries?
-- Are external services mocked in tests? (check for mock/stub/fake patterns)
-- Are there files > 500 lines? List them with line counts. (Note: git log stats and largest file data are pre-injected in the "Repository context" section above - use that data rather than running commands)
-- Check for barrel exports or public API definitions (__init__.py with __all__, index.ts re-exports)
-
-Each agent should output a structured facts-only report. Wait for all 5 agents to complete before proceeding.
-
-### Phase 2: Score (judgment, use current model)
-
-Once all exploration agents return, assemble their signal reports into a single evidence document. Then score each of the 9 categories against the rubric above.
+Score each of the 14 categories against the rubric above using the signal data from Phase 1.
 
 For each category:
 1. Review the relevant signals from the exploration reports
