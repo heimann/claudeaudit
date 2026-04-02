@@ -2,7 +2,8 @@
 # Deterministic signal gathering for claudeaudit
 # Reads all files relevant to AI agent readiness and outputs a structured report.
 # The LLM scores from this output - no exploration needed.
-set -euo pipefail
+set -uo pipefail
+# Note: not using set -e because grep/find returning no matches is expected
 
 REPO="${1:-.}"
 cd "$REPO"

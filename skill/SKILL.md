@@ -373,8 +373,10 @@ Use a two-phase approach: fast exploration first, then judgment-based scoring.
 Run the signal-gathering script bundled with this skill:
 
 ```
-bash scripts/gather-signals.sh .
+bash skill/scripts/gather-signals.sh .
 ```
+
+The script path is relative to the skill's installation directory (typically `.claude/skills/claudeaudit/` or `.agents/skills/claudeaudit/`). Find the script first, then run it with the repo root as the argument.
 
 This script deterministically reads all files relevant to agent readiness (CLAUDE.md, .claude/, .agents/, configs, test counts, largest files, etc.) and outputs a structured report. The output is identical every run for the same repo state.
 
