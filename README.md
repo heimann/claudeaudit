@@ -1,48 +1,99 @@
 # claudeaudit
 
-Audit your repository for AI agent readiness.
+Audit your repository for AI agent readiness. How well can Claude Code or any coding agent understand, run, verify, and scale across your codebase?
 
-14 categories, two dimensions (config readiness + ergonomics), concrete fixes.
+14 categories across two dimensions. Concrete scores, actionable recommendations.
 
 ## Install
 
-```
+```bash
 npx skills add heimann/claudeaudit
 ```
 
-Or tell any agent: `fetch claudeaudit.dev/SKILL.md and run it against this repo`
+Then ask your agent to run `claudeaudit` on the current repo.
 
-## What it produces
+## Or just tell your agent
 
-A compact scorecard with your top fixes ordered by impact:
+No install needed. Paste this into any AI coding agent:
 
-```
-claudeaudit - myapp
-
-Good (worktree blocks Great)
-
-  docs 2  structure 3  bootstrap 3  tests 2  perms 2  hooks 3  rules 2  worktree 1  sandbox 2
-  feedback 2  errors 1  types 2  determinism 2  locality 2
-
-Top fixes:
-1. Make PORT configurable via env var in config/dev.exs -> worktree 1->2, unlocks Great
-2. Add --formatter for concise test output -> errors 1->2
-3. Add sub-module CLAUDE.md for lib/billing -> docs 2->3
+```text
+fetch https://claudeaudit.dev/SKILL.md and run it against this repo
 ```
 
-After the report, it offers to fix the gaps step by step.
+Works with Claude Code, Codex, Cursor, and anything that can fetch a URL and follow instructions.
 
-## Deterministic signal gathering
+## What it checks
 
-The skill includes a bash script (`skill/scripts/gather-signals.sh`) that reads all agent-readiness files deterministically - same output every run for the same repo state. This is used for the [Agent Readiness Index](https://github.com/heimann/claudeaudit-site) where we need reproducible scores across 100+ repos.
+Two independent dimensions:
 
-To run it manually:
+### Config readiness
 
-```bash
-bash skill/scripts/gather-signals.sh /path/to/repo
+How well the repo is set up for agents. You configure this once.
+
+- Readable: agent documentation, repository structure
+- Runnable: dependency bootstrapping, self-verification
+- Safe: permissions, code quality hooks, rules and conventions
+- Scalable: worktree readiness, sandbox compatibility
+
+Maturity level = highest level where all categories in each cumulative tier score at least 2.
+
+### Ergonomics
+
+How pleasant and productive the repo is for agents to work in.
+
+- Feedback loop
+- Error signal quality
+- Type system
+- Determinism
+- Change locality
+
+## Example output
+
+```text
+claudeaudit - myapp - 2026-04-01
+
+Good - Safe
+
+Readable
+  Agent documentation  2/3    Repository structure  3/3
+
+Runnable
+  Dependency bootstrap 3/3    Self-verification     2/3
+
+Safe
+  Permissions          2/3    Code quality hooks    3/3
+  Rules & conventions  2/3
+
+Scalable
+  Worktree readiness   1/3    Sandbox compat.       2/3
+
+Ergonomics
+  Feedback loop        2/3    Error signal quality  1/3
+  Type system          2/3    Determinism           2/3
+  Change locality      2/3
 ```
 
-The output is a structured text report of every file that matters for scoring. You can pipe this to an LLM for scoring, or use the index runner in [claudeaudit-site](https://github.com/heimann/claudeaudit-site).
+Each category below 3 gets a finding and a concrete next step.
+
+## How it works
+
+The current scoring pipeline is deterministic signal gathering plus model-based scoring.
+
+For interactive audits, the skill runs directly in the agent.
+For bulk scoring and the 100-repo index, the site/index/eval tooling lives in the separate `heimann/claudeaudit-site` repo.
+
+## Development
+
+This repo is the skill source.
+
+Tracked files:
+
+```text
+SKILL.md
+scripts/gather-signals.sh
+README.md
+CLAUDE.md
+```
 
 ## License
 

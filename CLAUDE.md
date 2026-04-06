@@ -1,19 +1,25 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with this repository.
 
 ## Project
 
-claudeaudit is an npm CLI that installs a Claude Code skill for auditing repositories' AI agent readiness. The CLI (`bin/cli.mjs`) copies `skill/SKILL.md` into the target repo's `.claude/skills/claudeaudit/` directory. Not yet published to npm.
+claudeaudit is an installable agent skill for auditing repositories' AI agent readiness.
+
+Distribution is via `npx skills add heimann/claudeaudit` or by fetching `https://claudeaudit.dev/SKILL.md` directly.
+
+This repo is not meant to ship a standalone npm CLI.
 
 ## Architecture
 
-- `bin/cli.mjs` - CLI entry point, copies skill into target repo
-- `skill/SKILL.md` - the audit skill (copied by CLI at install time)
-- `SKILL.md` (root) - source of truth for the skill; `skill/SKILL.md` must be kept in sync with this file
-- `site/index.html` - static website for claudeaudit.dev
+- `SKILL.md` - root source of truth for the skill
+- `scripts/gather-signals.sh` - deterministic signal-gathering helper used by the skill
+
+The site, evals, and 100-repo index live in the separate `heimann/claudeaudit-site` repo.
 
 ## Conventions
 
-- Zero dependencies: the CLI uses only Node.js built-ins (`fs`, `path`, `url`). Do not add npm dependencies.
-- ES modules (`.mjs` extension, `import` syntax)
+- Keep a single root `SKILL.md`
+- Keep helper scripts under `scripts/`
+- Prefer the skill/install distribution story over package/CLI distribution
+- Do not add npm dependencies unless we explicitly decide to reintroduce package-based distribution
